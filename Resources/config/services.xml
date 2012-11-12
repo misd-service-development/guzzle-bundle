@@ -7,6 +7,7 @@
     <parameters>
         <parameter key="guzzle.client.class">Guzzle\Service\Client</parameter>
         <parameter key="guzzle.data_collector.class">Misd\GuzzleBundle\DataCollector\HttpDataCollector</parameter>
+        <parameter key="guzzle.service_description.class">Guzzle\Service\Description\ServiceDescription</parameter>
         <parameter key="misd_guzzle.listener.request_listener.class">Misd\GuzzleBundle\EventListener\RequestListener</parameter>
         <parameter key="misd_guzzle.listener.service_builder_listener.class">Misd\GuzzleBundle\EventListener\ServiceBuilderListener</parameter>
     </parameters>
