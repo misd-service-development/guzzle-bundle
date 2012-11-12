@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="guzzle.client.class">Guzzle\Service\Client</parameter>
+        <parameter key="guzzle.data_collector.class">Misd\GuzzleBundle\DataCollector\HttpDataCollector</parameter>
     </parameters>
 
     <services>
@@ -15,9 +16,17 @@
         <service id="misd_guzzle.log.monolog" class="%guzzle.plugin.log.class%" public="false">
             <argument type="service" id="misd_guzzle.log.adapter.monolog"/>
         </service>
-        <service id="misd_guzzle.log.adapter.monolog" class="%guzzle.log.adapter.monolog.class%">
+        <service id="misd_guzzle.log.adapter.monolog" class="%guzzle.log.adapter.monolog.class%" public="false">
             <tag name="monolog.logger" channel="guzzle"/>
             <argument type="service" id="logger"/>
+        </service>
+        <service id="misd_guzzle.log.array" class="%guzzle.plugin.log.class%" public="false">
+            <argument type="service" id="misd_guzzle.log.adapter.array"/>
+        </service>
+        <service id="misd_guzzle.log.adapter.array" class="%guzzle.log.adapter.array.class%" public="false"/>
+        <service id="misd_guzzle.data_collector" class="%guzzle.data_collector.class%">
+            <tag name="data_collector" template="MisdGuzzleBundle:Collector:guzzle" id="guzzle"/>
+            <argument type="service" id="misd_guzzle.log.adapter.array"/>
         </service>
     </services>
 
