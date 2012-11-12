@@ -23,6 +23,7 @@ class ClientCompilerPass implements CompilerPassInterface
             $container->getDefinition($id)
                 ->addMethodCall('addSubscriber', array((new Reference('misd_guzzle.log.monolog'))))
                 ->addMethodCall('addSubscriber', array((new Reference('misd_guzzle.log.array'))))
+                ->addMethodCall('addSubscriber', array((new Reference('misd_guzzle.listener.request_listener'))))
             ;
         }
     }
