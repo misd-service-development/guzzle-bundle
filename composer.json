@@ -1,0 +1,28 @@
+{
+    "name":"misd/guzzle-bundle",
+    "type":"symfony-bundle",
+    "description":"Integrates Guzzle into your Symfony2 application",
+    "keywords":["guzzle", "bundle"],
+    "homepage":"https://github.com/misd-service-development/guzzle-bundle",
+    "license":"MIT",
+    "authors":[
+        {
+            "name":"Chris Wilkinson",
+            "email":"chris.wilkinson@admin.cam.ac.uk"
+        }
+    ],
+    "support":{
+        "issues":"https://github.com/misd-service-development/guzzle-bundle/issues"
+    },
+    "require":{
+        "php":">=5.3.2",
+        "symfony/framework-bundle":">=2.0,<2.2-dev",
+        "guzzle/guzzle":"3.0.*"
+    },
+    "autoload":{
+        "psr-0":{
+            "Misd\\GuzzleBundle":""
+        }
+    },
+    "target-dir":"Misd/GuzzleBundle"
+}
