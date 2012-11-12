@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="guzzle.cache.doctrine.class">Guzzle\Cache\DoctrineCacheAdapter</parameter>
+        <parameter key="guzzle.cache.doctrine.filesystem.class">Doctrine\Common\Cache\FilesystemCache</parameter>
+    </parameters>
+
+    <services>
+        <service id="misd_guzzle.cache.doctrine.filesystem.adapter" class="%guzzle.cache.doctrine.filesystem.class%">
+            <argument>%kernel.cache_dir%/guzzle/</argument>
+        </service>
+        <service id="misd_guzzle.cache.doctrine.filesystem" class="%guzzle.cache.doctrine.class%">
+            <argument type="service" id="misd_guzzle.cache.doctrine.filesystem.adapter"/>
+        </service>
+        <service id="misd_guzzle.cache.filesystem" class="%guzzle.plugin.cache.class%">
+            <argument type="service" id="misd_guzzle.cache.doctrine.filesystem"/>
+        </service>
+    </services>
+
+</container>

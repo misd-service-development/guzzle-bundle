@@ -27,6 +27,7 @@ class MisdGuzzleExtension extends Extension
         $loader->load('services.xml');
         $loader->load('plugin.xml');
         $loader->load('log.xml');
+        $loader->load('cache.xml');
 
         $container->setParameter(
             'guzzle.service_builder.class',

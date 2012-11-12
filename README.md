@@ -74,6 +74,12 @@ Using the service container allows you to easily set up your client. You can add
         </call>
     </service>
 
+The bundle provides the `misd_guzzle.cache.filesystem` service, which allows you to quickly take advantage of caching (storing files in your `app/cache` folder). Add the service to your client:
+
+    <call method="addSubscriber">
+        <argument type="service" id="misd_guzzle.cache.filesystem"/>
+    </call>
+
 ### Guzzle service builder
 
 The bundle also allows clients to be created through the Guzzle service builder. Add a reference to your service builder data file in your application's config file (default values shown):
