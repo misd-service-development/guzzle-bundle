@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="guzzle.plugin.async.class">Guzzle\Plugin\Async\AsyncPlugin</parameter>
+        <parameter key="guzzle.plugin.backoff.class">Guzzle\Plugin\Backoff\BackoffPlugin</parameter>
+        <parameter key="guzzle.plugin.cache.class">Guzzle\Plugin\Cache\CachePlugin</parameter>
+        <parameter key="guzzle.plugin.cookie.class">Guzzle\Plugin\Cookie\CookiePlugin</parameter>
+        <parameter key="guzzle.plugin.curl_auth.class">Guzzle\Plugin\CurlAuth\CurlAuthPlugin</parameter>
+        <parameter key="guzzle.plugin.history.class">Guzzle\Plugin\History\HistoryPlugin</parameter>
+        <parameter key="guzzle.plugin.log.class">Guzzle\Plugin\Log\LogPlugin</parameter>
+        <parameter key="guzzle.plugin.md5_validator.class">Guzzle\Plugin\Md5\Md5ValidatorPlugin</parameter>
+        <parameter key="guzzle.plugin.command_content_md5.class">Guzzle\Plugin\Md5\CommandContentMd5Plugin</parameter>
+        <parameter key="guzzle.plugin.mock.class">Guzzle\Plugin\Mock\MockPlugin</parameter>
+        <parameter key="guzzle.plugin.oauth.class">Guzzle\Plugin\Oauth\OauthPlugin</parameter>
+    </parameters>
+
+</container>
