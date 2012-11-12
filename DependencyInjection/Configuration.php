@@ -19,7 +19,18 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('misd_guzzle');
+        $rootNode = $treeBuilder->root('guzzle');
+
+        $rootNode
+            ->children()
+                ->arrayNode('service_builder')
+                    ->children()
+                        ->scalarNode('class')->defaultValue('Guzzle\Service\Builder\ServiceBuilder')->end()
+                        ->scalarNode('configuration_file')->defaultValue('%kernel.root_dir%/config/webservices.json')->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }
