@@ -11,13 +11,21 @@
 
 namespace Misd\GuzzleBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder,
+    Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\Loader;
 
+/**
+ * Set up the MisdGuzzleBundle.
+ *
+ * @author Chris Wilkinson <chris.wilkinson@admin.cam.ac.uk>
+ */
 class MisdGuzzleExtension extends Extension
 {
+    /**
+     * {@inheritdoc}
+     */
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();

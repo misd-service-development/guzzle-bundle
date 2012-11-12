@@ -15,8 +15,16 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * Add the bundle's listeners to Guzzle clients created as services.
+ *
+ * @author Chris Wilkinson <chris.wilkinson@admin.cam.ac.uk>
+ */
 class ClientCompilerPass implements CompilerPassInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function process(ContainerBuilder $container)
     {
         foreach ($container->findTaggedServiceIds('guzzle.client') as $id => $attributes) {

@@ -14,8 +14,16 @@ namespace Misd\GuzzleBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+/**
+ * Set up the bundle's configuration.
+ *
+ * @author Chris Wilkinson <chris.wilkinson@admin.cam.ac.uk>
+ */
 class Configuration implements ConfigurationInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();

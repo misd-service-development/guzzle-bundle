@@ -15,8 +15,17 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Misd\GuzzleBundle\DependencyInjection\Compiler\ClientCompilerPass;
 
+/**
+ * MisdGuzzleBundle integrates {@link http://guzzlephp.org/ Guzzle} into your
+ * Symfony2 application.
+ *
+ * @author Chris Wilkinson <chris.wilkinson@admin.cam.ac.uk>
+ */
 class MisdGuzzleBundle extends Bundle
 {
+    /**
+     * {@inheritdoc}
+     */
     public function build(ContainerBuilder $container)
     {
         parent::build($container);

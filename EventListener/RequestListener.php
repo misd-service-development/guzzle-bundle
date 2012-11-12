@@ -14,8 +14,16 @@ namespace Misd\GuzzleBundle\EventListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Debug\Stopwatch;
 
+/**
+ * Adds request length details to the Symfony2 Profiler timeline.
+ *
+ * @author Chris Wilkinson <chris.wilkinson@admin.cam.ac.uk>
+ */
 class RequestListener implements EventSubscriberInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public static function getSubscribedEvents()
     {
         return array(
@@ -24,13 +32,24 @@ class RequestListener implements EventSubscriberInterface
         );
     }
 
+    /**
+     * @var Stopwatch|null
+     */
     protected $stopwatch;
 
+    /**
+     * Constructor.
+     *
+     * @param Stopwatch|null $stopwatch
+     */
     public function __construct(Stopwatch $stopwatch = null)
     {
         $this->stopwatch = $stopwatch;
     }
 
+    /**
+     * Starts the stopwatch.
+     */
     public function onRequestBeforeSend()
     {
         if (null !== $this->stopwatch) {
@@ -38,6 +57,9 @@ class RequestListener implements EventSubscriberInterface
         }
     }
 
+    /**
+     * Stops the stopwatch.
+     */
     public function onRequestComplete()
     {
         if (null !== $this->stopwatch) {
