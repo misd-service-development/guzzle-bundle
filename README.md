@@ -50,14 +50,14 @@ Usage
 
 ### Clients as services
 
-The best way to use Guzzle in Symfony2 is to let the service container create your client objects for you. Create a service for each client, and tag it with `guzzle.client`. If you aren't using a concrete client class, you can use the default Guzzle client by using the `%guzzle.client.class%` parameter:
+The best way to use Guzzle in Symfony2 is to let the service container create your client objects for you. Create a service for each client, and tag it with `guzzle.client`. If you aren't using a concrete client class, you can use the default Guzzle client through the `%guzzle.client.class%` parameter:
 
     <service id="example.client" class="%guzzle.client.class%">
         <tag name="guzzle.client"/>
         <argument>http://api.example.com/</argument>
     </service>
 
-Using the service container allows you to easily set up your client. You can add a collection of settings in the second argument (see the Guzzle docs for details), and you can call methods to attach plugins (which are themselves services) etc. For example:
+Using the service container allows you to easily set up your client. You can add a collection of settings in the second argument (see the Guzzle docs for details), and you can call methods to attach plugins (which have been made services themselves) etc. For example:
 
     <service id="example.client" class="%guzzle.client.class%">
         <tag name="guzzle.client"/>
@@ -93,7 +93,7 @@ Then add the service description to your client:
 
 #### Caching
 
-The bundle provides the `misd_guzzle.cache.filesystem` service, which allows you to quickly take advantage of caching (by storing files in your `app/cache` folder). Add the service to your client:
+The bundle provides the `misd_guzzle.cache.filesystem` service, which allows you to quickly take advantage of caching (by storing files in your `app/cache` folder). Simply add the service to your client:
 
     <call method="addSubscriber">
         <argument type="service" id="misd_guzzle.cache.filesystem"/>
