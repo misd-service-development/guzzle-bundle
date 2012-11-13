@@ -32,6 +32,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('service_builder')
+                    ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('class')->defaultValue('Guzzle\Service\Builder\ServiceBuilder')->end()
                         ->scalarNode('configuration_file')->defaultValue('%kernel.root_dir%/config/webservices.json')->end()
