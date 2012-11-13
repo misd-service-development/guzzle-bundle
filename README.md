@@ -74,6 +74,12 @@ Using the service container allows you to easily set up your client. You can add
         </call>
     </service>
 
+#### Generic client
+
+A generic Guzzle client is available in the `guzzle.client` service:
+
+    $client = $this->get('guzzle.client');
+
 #### Service descriptions
 
 To use a service description, first create a service for it:
