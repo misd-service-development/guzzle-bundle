@@ -91,6 +91,12 @@ To use a service description, first create a service for it:
         <argument>%path.to.my.service_description.file%</argument>
     </service>
 
+Set the parameter to the service description file:
+
+    // MyBundle/DependencyInjection/MyBundleExtension.php
+
+    $container->setParameter('path.to.my.service_description.file', __DIR__ . '/../Resources/config/client.json');
+
 Then add the service description to your client:
 
     <call method="setDescription">
