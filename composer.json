@@ -19,6 +19,9 @@
         "symfony/framework-bundle":">=2.0,<2.2-dev",
         "guzzle/guzzle":"3.0.*"
     },
+    "suggest":{
+        "jms/serializer-bundle":"Serialize/deserialize objects to/from XML, JSON and YAML."
+    },
     "autoload":{
         "psr-0":{
             "Misd\\GuzzleBundle":""

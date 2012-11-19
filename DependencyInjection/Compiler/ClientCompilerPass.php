@@ -32,6 +32,7 @@ class ClientCompilerPass implements CompilerPassInterface
                 ->addMethodCall('addSubscriber', array((new Reference('misd_guzzle.log.monolog'))))
                 ->addMethodCall('addSubscriber', array((new Reference('misd_guzzle.log.array'))))
                 ->addMethodCall('addSubscriber', array((new Reference('misd_guzzle.listener.request_listener'))))
+                ->addMethodCall('addSubscriber', array((new Reference('misd_guzzle.listener.command_listener'))))
             ;
         }
     }
