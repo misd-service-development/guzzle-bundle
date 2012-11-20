@@ -28,21 +28,18 @@ class GuzzleDataCollector extends DataCollector
     public function collect(Request $request, Response $response, \Exception $exception = null)
     {
         foreach ($this->logAdapter->getLogs() as $log) {
-            $log['request'] = (string) $log['extras']['request'];
-            $log['response'] = (string) $log['extras']['response'];
-            unset($log['extras']['handle']); // can break serialization
-            $this->data['logs'][] = $log;
+            $datum['message'] = $log['message'];
+            $datum['request'] = (string) $log['extras']['request'];
+            $datum['response'] = (string) $log['extras']['response'];
+            $datum['is_error'] = $log['extras']['response']->isError();
+
+            $this->data['requests'][] = $datum;
         }
     }
 
-    public function getLogs()
+    public function getRequests()
     {
-        return $this->data['logs'];
-    }
-
-    public function countLogs()
-    {
-        return count($this->data['logs']);
+        return $this->data['requests'];
     }
 
     public function getName()
