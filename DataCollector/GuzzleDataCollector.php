@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
-class HttpDataCollector extends DataCollector
+class GuzzleDataCollector extends DataCollector
 {
     protected $logAdapter;
 
