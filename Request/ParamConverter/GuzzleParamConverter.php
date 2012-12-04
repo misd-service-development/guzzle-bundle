@@ -124,6 +124,8 @@ class GuzzleParamConverter implements ParamConverterInterface
      */
     protected function find(ConfigurationInterface $configuration)
     {
+        $options = $configuration->getOptions();
+
         // determine the client, if possible
         if (true === isset($options['client'])) {
             if (false === isset($this->clients[$options['client']])) {
@@ -139,7 +141,7 @@ class GuzzleParamConverter implements ParamConverterInterface
             if (null === $client) {
                 throw new LogicException('Command defined without a client');
             }
-            $operations = $client->getDescription()->getOperations();
+            $operations = $this->clients[$client]->getDescription()->getOperations();
             if (false === isset($operations[$options['command']])) {
                 throw new LogicException(sprintf(
                     'Unknown command \'%s\' for client \'%s\'',
@@ -152,9 +154,9 @@ class GuzzleParamConverter implements ParamConverterInterface
 
             if (false === ($configuration->getClass() === $operations[$options['command']]->getResponseClass())) {
                 throw new LogicException(sprintf(
-                    'Command \'%s\' return \'%s\' rather than \'%\'',
+                    'Command \'%s\' return \'%s\' rather than \'%s\'',
                     $options['command'],
-                    $command->getResponseClass(),
+                    $operations[$options['command']]->getResponseClass(),
                     $configuration->getClass()
                 ));
             }
@@ -162,10 +164,10 @@ class GuzzleParamConverter implements ParamConverterInterface
             $command = null;
         }
 
-        // if we don't known the command yet, try and find it
+        // if we don't know the command yet, try and find it
         if (null === $command) {
             if (null !== $client) {
-                $searchClients = array($options['client'] => $client);
+                $searchClients = array($options['client'] => $this->clients[$client]);
             } else {
                 $searchClients = $this->clients;
             }
