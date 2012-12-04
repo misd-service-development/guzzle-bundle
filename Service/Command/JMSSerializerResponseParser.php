@@ -50,8 +50,6 @@ class JMSSerializerResponseParser extends DefaultResponseParser
                 $serializerContentType = 'json';
             } elseif (false !== stripos($contentType, 'xml')) {
                 $serializerContentType = 'xml';
-            } elseif (false !== stripos($contentType, 'yaml')) {
-                $serializerContentType = 'yml';
             } else {
                 $serializerContentType = null;
             }
