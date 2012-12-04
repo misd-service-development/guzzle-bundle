@@ -23,6 +23,12 @@
     "suggest":{
         "jms/serializer-bundle":"Serialize/deserialize objects to/from XML, JSON and YAML."
     },
+    "require-dev":{
+        "symfony/form":">=2.0,<2.2-dev",
+        "symfony/yaml":">=2.0,<2.2-dev",
+        "symfony/monolog-bundle":"2.1.*",
+        "jms/serializer-bundle":"*"
+    },
     "autoload":{
         "psr-0":{
             "Misd\\GuzzleBundle":""

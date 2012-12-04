@@ -1,0 +1,72 @@
+{
+    "name":"Test",
+    "baseUrl":"http://api.example.com/api/",
+    "operations":{
+        "GetPerson":{
+            "httpMethod":"GET",
+            "uri":"person/{id}",
+            "summary":"Get a person",
+            "parameters":{
+                "id":{
+                    "location":"query",
+                    "description":"Person to retrieve by ID",
+                    "required":true
+                }
+            }
+        },
+        "GetPersonClass":{
+            "httpMethod":"GET",
+            "uri":"person/{id}",
+            "summary":"Get a person",
+            "responseClass":"Misd\\GuzzleBundle\\Tests\\Fixtures\\Person",
+            "parameters":{
+                "id":{
+                    "location":"query",
+                    "description":"Person to retrieve by ID",
+                    "required":true
+                }
+            }
+        },
+        "AddPerson":{
+            "httpMethod":"POST",
+            "uri":"person",
+            "summary":"Add a person",
+            "parameters":{
+                "person":{
+                    "location":"body",
+                    "type":"object",
+                    "instanceOf":"Misd\\GuzzleBundle\\Tests\\Fixtures\\Person",
+                    "required":"true"
+                }
+            }
+        },
+        "AddPersonJson":{
+            "httpMethod":"POST",
+            "uri":"person",
+            "summary":"Add a person",
+            "parameters":{
+                "person":{
+                    "location":"body",
+                    "type":"object",
+                    "instanceOf":"Misd\\GuzzleBundle\\Tests\\Fixtures\\Person",
+                    "sentAs":"json",
+                    "required":"true"
+                }
+            }
+        },
+        "AddPersonYaml":{
+            "httpMethod":"POST",
+            "uri":"person",
+            "summary":"Add a person",
+            "parameters":{
+                "person":{
+                    "location":"body",
+                    "type":"object",
+                    "instanceOf":"Misd\\GuzzleBundle\\Tests\\Fixtures\\Person",
+                    "sentAs":"yml",
+                    "required":"true"
+                }
+            }
+        }
+    }
+}
