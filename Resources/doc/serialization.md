@@ -50,6 +50,7 @@ For example:
         "parameters":{
             "person":{
                 "location":"body",
+                "type":"object",
                 "instanceOf":"Vendor\\MyBundle\\Entity\\Person",
                 "sentAs":"json",
                 "required":"true"
