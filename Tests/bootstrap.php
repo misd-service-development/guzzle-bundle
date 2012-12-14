@@ -24,4 +24,4 @@ EOT
     );
 }
 
-AnnotationRegistry::registerAutoloadNamespaces(array('JMS\\SerializerBundle' => __DIR__.'/../vendor/jms/serializer-bundle/'));
+AnnotationRegistry::registerAutoloadNamespaces(array('JMS\\Serializer' => __DIR__.'/../vendor/jms/serializer/src'));

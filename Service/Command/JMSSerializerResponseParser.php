@@ -14,7 +14,7 @@ namespace Misd\GuzzleBundle\Service\Command;
 use Guzzle\Http\Message\Response;
 use Guzzle\Service\Command\AbstractCommand;
 use Guzzle\Service\Command\DefaultResponseParser;
-use JMS\SerializerBundle\Serializer\Serializer;
+use JMS\Serializer\Serializer;
 
 /**
  * JMSSerializerBundle-enabled response parser.

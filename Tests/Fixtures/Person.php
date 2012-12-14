@@ -11,7 +11,7 @@
 
 namespace Misd\GuzzleBundle\Tests\Fixtures;
 
-use JMS\SerializerBundle\Annotation as Serializer;
+use JMS\Serializer\Annotation as Serializer;
 
 /** @Serializer\XmlRoot("person") */
 class Person
