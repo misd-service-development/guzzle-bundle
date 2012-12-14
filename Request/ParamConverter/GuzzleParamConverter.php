@@ -11,7 +11,7 @@
 
 namespace Misd\GuzzleBundle\Request\ParamConverter;
 
-use Guzzle\Http\Exception\ClientErrorResponseException;
+use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Service\ClientInterface;
 use LogicException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface;
@@ -90,7 +90,7 @@ class GuzzleParamConverter implements ParamConverterInterface
 
         try {
             $result = $client->execute($command);
-        } catch (ClientErrorResponseException $e) {
+        } catch (BadResponseException $e) {
             if (true === $configuration->isOptional()) {
                 $result = null;
             } elseif (404 === $e->getResponse()->getStatusCode()) {
