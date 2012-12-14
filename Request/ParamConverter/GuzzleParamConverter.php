@@ -131,7 +131,7 @@ class GuzzleParamConverter implements ParamConverterInterface
             if (false === isset($this->clients[$options['client']])) {
                 throw new LogicException(sprintf('Unknown client \'%s\'', $options['client']));
             }
-            $client = $options['client'];
+            $client = $this->clients[$options['client']];
         } else {
             $client = null;
         }
@@ -141,7 +141,7 @@ class GuzzleParamConverter implements ParamConverterInterface
             if (null === $client) {
                 throw new LogicException('Command defined without a client');
             }
-            $operations = $this->clients[$client]->getDescription()->getOperations();
+            $operations = $client->getDescription()->getOperations();
             if (false === isset($operations[$options['command']])) {
                 throw new LogicException(sprintf(
                     'Unknown command \'%s\' for client \'%s\'',
@@ -167,7 +167,7 @@ class GuzzleParamConverter implements ParamConverterInterface
         // if we don't know the command yet, try and find it
         if (null === $command) {
             if (null !== $client) {
-                $searchClients = array($options['client'] => $this->clients[$client]);
+                $searchClients = array($options['client'] => $client);
             } else {
                 $searchClients = $this->clients;
             }
