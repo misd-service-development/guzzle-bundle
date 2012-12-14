@@ -10,6 +10,7 @@
                 "id":{
                     "location":"query",
                     "description":"Person to retrieve by ID",
+                    "type":"integer",
                     "required":true
                 }
             }
@@ -23,6 +24,7 @@
                 "id":{
                     "location":"query",
                     "description":"Person to retrieve by ID",
+                    "type":"integer",
                     "required":true
                 }
             }
