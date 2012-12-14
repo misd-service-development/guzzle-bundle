@@ -15,7 +15,7 @@ use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Service\Command\CommandInterface;
 use Guzzle\Service\Command\LocationVisitor\Request\BodyVisitor;
 use Guzzle\Service\Description\Parameter;
-use JMS\SerializerBundle\Serializer\Serializer;
+use JMS\Serializer\Serializer;
 
 /**
  * JMSSerializerBundle-enabled request body visitor.
