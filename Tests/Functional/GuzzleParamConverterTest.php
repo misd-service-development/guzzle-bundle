@@ -17,7 +17,7 @@ use Misd\GuzzleBundle\Request\ParamConverter\GuzzleParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class ParamConverterTest extends TestCase
+class GuzzleParamConverterTest extends TestCase
 {
     /**
      * @var GuzzleParamConverter
