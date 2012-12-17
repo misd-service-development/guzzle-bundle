@@ -15,6 +15,8 @@ use Guzzle\Common\Event;
 use Guzzle\Service\Command\LocationVisitor\Request\RequestVisitorInterface;
 use Guzzle\Service\Command\OperationCommand;
 use Guzzle\Service\Command\ResponseParserInterface;
+use JMS\Serializer\SerializerInterface;
+use Misd\GuzzleBundle\Service\Command\JMSSerializerAwareCommandInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -35,6 +37,11 @@ class CommandListener implements EventSubscriberInterface
     }
 
     /**
+     * @var SerializerInterface
+     */
+    protected $serializer;
+
+    /**
      * @var RequestVisitorInterface
      */
     protected $requestBodyVisitor;
@@ -47,11 +54,17 @@ class CommandListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param RequestVisitorInterface $requestBodyVisitor Request body visitor.
-     * @param ResponseParserInterface $responseParser     Response parser.
+     * @param SerializerInterface|null $serializer         JMSSerializer, if available.
+     * @param RequestVisitorInterface  $requestBodyVisitor Request body visitor.
+     * @param ResponseParserInterface  $responseParser     Response parser.
      */
-    public function __construct(RequestVisitorInterface $requestBodyVisitor, ResponseParserInterface $responseParser)
+    public function __construct(
+        SerializerInterface $serializer = null,
+        RequestVisitorInterface $requestBodyVisitor,
+        ResponseParserInterface $responseParser
+    )
     {
+        $this->serializer = $serializer;
         $this->requestBodyVisitor = $requestBodyVisitor;
         $this->responseParser = $responseParser;
     }
@@ -66,6 +79,10 @@ class CommandListener implements EventSubscriberInterface
         if ($event['command'] instanceof OperationCommand) {
             $event['command']->getRequestSerializer()->addVisitor('body', $this->requestBodyVisitor);
             $event['command']->setResponseParser($this->responseParser);
+        }
+
+        if ($event['command'] instanceof JMSSerializerAwareCommandInterface && null !== $this->serializer) {
+            $event['command']->setSerializer($this->serializer);
         }
     }
 }

@@ -1,0 +1,7 @@
+{
+    "services": {
+        "concrete": {
+            "class":"Misd\\GuzzleBundle\\Tests\\Fixtures\\ConcreteCommandClient\\ConcreteCommandClient"
+        }
+    }
+}

@@ -40,6 +40,7 @@ class AbstractTestCase extends PHPUnit_Framework_TestCase
         $container->setParameter('kernel.root_dir', __DIR__ . '/Fixtures');
         $container->set('service_container', $container);
         $container->set('logger', $this->getMock('Symfony\\Bridge\\Monolog\\Logger', array(), array('app')));
+        $container->set('jms_serializer', $this->getMock('JMS\\Serializer\\SerializerInterface'));
 
         $container->registerExtension($extension);
         $extension->load($config, $container);

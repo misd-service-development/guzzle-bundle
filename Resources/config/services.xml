@@ -58,6 +58,7 @@
             <argument type="service" id="debug.stopwatch" on-invalid="null"/>
         </service>
         <service id="misd_guzzle.listener.command_listener" class="%misd_guzzle.listener.command.class%">
+            <argument type="service" id="jms_serializer" on-invalid="null"/>
             <argument type="service" id="misd_guzzle.request.visitor.body"/>
             <argument type="service" id="misd_guzzle.response.parser"/>
         </service>

@@ -62,3 +62,8 @@ Executing the `CreatePerson` command will now send an instance of `Vendor\MyBund
 
     $command = $client->getCommand('CreatePerson', array('person' => $person));
     $client->execute($command);
+
+Concrete commands
+-----------------
+
+When using a concrete command, you can still make use of the JMSSerializer by implementating `Misd\GuzzleBundle\Service\Command\JMSSerializerAwareCommandInterface`.
