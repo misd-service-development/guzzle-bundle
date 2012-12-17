@@ -13,6 +13,7 @@ namespace Misd\GuzzleBundle\EventListener;
 
 use Guzzle\Common\Event;
 use Guzzle\Service\Command\LocationVisitor\Request\RequestVisitorInterface;
+use Guzzle\Service\Command\OperationCommand;
 use Guzzle\Service\Command\ResponseParserInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -62,7 +63,9 @@ class CommandListener implements EventSubscriberInterface
      */
     public function onCommandCreate(Event $event)
     {
-        $event['command']->getRequestSerializer()->addVisitor('body', $this->requestBodyVisitor);
-        $event['command']->setResponseParser($this->responseParser);
+        if ($event['command'] instanceof OperationCommand) {
+            $event['command']->getRequestSerializer()->addVisitor('body', $this->requestBodyVisitor);
+            $event['command']->setResponseParser($this->responseParser);
+        }
     }
 }
