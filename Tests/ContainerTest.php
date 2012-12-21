@@ -79,12 +79,6 @@ class ContainerTest extends AbstractTestCase
             $container->get('misd_guzzle.listener.command_listener')
         );
 
-        $this->assertTrue($container->has('misd_guzzle.listener.service_builder_listener'));
-        $this->assertInstanceOf(
-            'Misd\GuzzleBundle\EventListener\ServiceBuilderListener',
-            $container->get('misd_guzzle.listener.service_builder_listener')
-        );
-
         $this->assertTrue($container->has('misd_guzzle.param_converter'));
         $this->assertInstanceOf(
             'Misd\GuzzleBundle\Request\ParamConverter\GuzzleParamConverter',
