@@ -13,7 +13,8 @@ namespace Misd\GuzzleBundle;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Misd\GuzzleBundle\DependencyInjection\Compiler\ClientCompilerPass;
+use Misd\GuzzleBundle\DependencyInjection\Compiler\ClientCompilerPass,
+    Misd\GuzzleBundle\DependencyInjection\Compiler\ServiceBuilderCompilerPass;
 
 /**
  * MisdGuzzleBundle integrates {@link http://guzzlephp.org/ Guzzle} into your
@@ -31,5 +32,6 @@ class MisdGuzzleBundle extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new ClientCompilerPass());
+        $container->addCompilerPass(new ServiceBuilderCompilerPass());
     }
 }

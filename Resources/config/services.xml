@@ -40,6 +40,7 @@
             <argument type="service" id="jms_serializer.serializer" on-invalid="ignore"/>
         </service>
         <service id="misd_guzzle.log.monolog" class="%guzzle.plugin.log.class%" public="false">
+            <tag name="misd_guzzle.plugin"/>
             <argument type="service" id="misd_guzzle.log.adapter.monolog"/>
         </service>
         <service id="misd_guzzle.log.adapter.monolog" class="%guzzle.log.adapter.monolog.class%" public="false">
@@ -47,6 +48,7 @@
             <argument type="service" id="logger"/>
         </service>
         <service id="misd_guzzle.log.array" class="%guzzle.plugin.log.class%" public="false">
+            <tag name="misd_guzzle.plugin"/>
             <argument type="service" id="misd_guzzle.log.adapter.array"/>
         </service>
         <service id="misd_guzzle.log.adapter.array" class="%guzzle.log.adapter.array.class%" public="false"/>
@@ -55,27 +57,17 @@
             <argument type="service" id="misd_guzzle.log.adapter.array"/>
         </service>
         <service id="misd_guzzle.listener.request_listener" class="%misd_guzzle.listener.request_listener.class%">
+            <tag name="misd_guzzle.plugin"/>
             <argument type="service" id="debug.stopwatch" on-invalid="null"/>
         </service>
         <service id="misd_guzzle.listener.command_listener" class="%misd_guzzle.listener.command.class%">
+            <tag name="misd_guzzle.plugin"/>
             <argument type="service" id="jms_serializer" on-invalid="null"/>
             <argument type="service" id="misd_guzzle.request.visitor.body"/>
             <argument type="service" id="misd_guzzle.response.parser"/>
         </service>
         <service id="misd_guzzle.listener.service_builder_listener"
                  class="%misd_guzzle.listener.service_builder_listener.class%">
-            <call method="addClientListener">
-                <argument type="service" id="misd_guzzle.log.array"/>
-            </call>
-            <call method="addClientListener">
-                <argument type="service" id="misd_guzzle.log.monolog"/>
-            </call>
-            <call method="addClientListener">
-                <argument type="service" id="misd_guzzle.listener.request_listener"/>
-            </call>
-            <call method="addClientListener">
-                <argument type="service" id="misd_guzzle.listener.command_listener"/>
-            </call>
         </service>
         <service id="misd_guzzle.param_converter" class="%misd_guzzle.param_converter.class%">
             <tag name="request.param_converter" converter="guzzle" priority="-100"/>

@@ -27,13 +27,12 @@ class ClientCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+        $plugins = $container->findTaggedServiceIds('misd_guzzle.plugin');
+
         foreach ($container->findTaggedServiceIds('guzzle.client') as $id => $attributes) {
-            $container->getDefinition($id)
-                ->addMethodCall('addSubscriber', array((new Reference('misd_guzzle.log.monolog'))))
-                ->addMethodCall('addSubscriber', array((new Reference('misd_guzzle.log.array'))))
-                ->addMethodCall('addSubscriber', array((new Reference('misd_guzzle.listener.request_listener'))))
-                ->addMethodCall('addSubscriber', array((new Reference('misd_guzzle.listener.command_listener'))))
-            ;
+            foreach ($plugins as $plugin => $pluginAttributes) {
+                $container->getDefinition($id)->addMethodCall('addSubscriber', array((new Reference($plugin))));
+            }
             if ('guzzle.client' !== $id) {
                 $container->getDefinition('misd_guzzle.param_converter')
                     ->addMethodCall('registerClient', array($id, new Reference($id)))
