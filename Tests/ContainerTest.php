@@ -49,6 +49,7 @@ class ContainerTest extends AbstractTestCase
 
         $this->assertTrue($container->has('misd_guzzle.log.monolog'));
         $this->assertInstanceOf('Guzzle\Plugin\Log\LogPlugin', $container->get('misd_guzzle.log.monolog'));
+        $this->assertTrue($container->getDefinition('misd_guzzle.log.monolog')->hasTag('misd_guzzle.plugin'));
 
         $this->assertTrue($container->has('misd_guzzle.log.adapter.monolog'));
         $this->assertInstanceOf('Guzzle\Log\MonologLogAdapter', $container->get('misd_guzzle.log.adapter.monolog'));
@@ -56,6 +57,7 @@ class ContainerTest extends AbstractTestCase
 
         $this->assertTrue($container->has('misd_guzzle.log.array'));
         $this->assertInstanceOf('Guzzle\Plugin\Log\LogPlugin', $container->get('misd_guzzle.log.array'));
+        $this->assertTrue($container->getDefinition('misd_guzzle.log.array')->hasTag('misd_guzzle.plugin'));
 
         $this->assertTrue($container->has('misd_guzzle.log.adapter.array'));
         $this->assertInstanceOf('Guzzle\Log\ArrayLogAdapter', $container->get('misd_guzzle.log.adapter.array'));
@@ -72,11 +74,17 @@ class ContainerTest extends AbstractTestCase
             'Misd\GuzzleBundle\EventListener\RequestListener',
             $container->get('misd_guzzle.listener.request_listener')
         );
+        $this->assertTrue(
+            $container->getDefinition('misd_guzzle.listener.request_listener')->hasTag('misd_guzzle.plugin')
+        );
 
         $this->assertTrue($container->has('misd_guzzle.listener.command_listener'));
         $this->assertInstanceOf(
             'Misd\GuzzleBundle\EventListener\CommandListener',
             $container->get('misd_guzzle.listener.command_listener')
+        );
+        $this->assertTrue(
+            $container->getDefinition('misd_guzzle.listener.command_listener')->hasTag('misd_guzzle.plugin')
         );
 
         $this->assertTrue($container->has('misd_guzzle.param_converter'));
