@@ -18,7 +18,7 @@
         "php":">=5.3.2",
         "symfony/framework-bundle":"~2.1",
         "sensio/framework-extra-bundle":"~2.1",
-        "guzzle/guzzle":"3.0.*"
+        "guzzle/guzzle":"~3.0"
     },
     "suggest":{
         "jms/serializer-bundle":"Serialize/deserialize objects to/from XML, JSON and YAML."
