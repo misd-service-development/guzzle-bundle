@@ -17,12 +17,12 @@ Documentation
 
 Documentation is stored in the `Resources/doc/index.md` file in this bundle:
 
-* [Read the Documentation for master](https://github.com/misd-service-development/guzzle-bundle/blob/master/Resources/doc/index.md)
+* [Read the documentation](Resources/doc/index.md)
 
 Installation
 ------------
 
-All the installation instructions are located in the [documentation](https://github.com/misd-service-development/guzzle-bundle/blob/master/Resources/doc/index.md).
+All the installation instructions are located in the [documentation](Resources/doc/index.md).
 
 Reporting an issue or a feature request
 ---------------------------------------
