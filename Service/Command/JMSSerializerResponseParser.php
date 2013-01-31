@@ -43,7 +43,26 @@ class JMSSerializerResponseParser extends DefaultResponseParser
     /**
      * {@inheritdoc}
      */
+    protected function handleParsing(AbstractCommand $command, Response $response, $contentType)
+    {
+        $deserialized = $this->deserialize($command, $response, $contentType);
+
+        return null !== $deserialized ? $deserialized : parent::handleParsing($command, $response, $contentType);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * Used in <= Guzzle 3.1.1 (renamed `handleParsing()` in 3.1.2).
+     */
     public function parseForContentType(AbstractCommand $command, Response $response, $contentType)
+    {
+        $deserialized = $this->deserialize($command, $response, $contentType);
+
+        return null !== $deserialized ? $deserialized : parent::parseForContentType($command, $response, $contentType);
+    }
+
+    protected function deserialize(AbstractCommand $command, Response $response, $contentType)
     {
         if (null !== $this->serializer) {
             if (false !== stripos($contentType, 'json')) {
@@ -63,6 +82,6 @@ class JMSSerializerResponseParser extends DefaultResponseParser
             }
         }
 
-        return parent::parseForContentType($command, $response, $contentType);
+        return null;
     }
 }
