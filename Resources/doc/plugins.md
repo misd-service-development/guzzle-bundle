@@ -1,7 +1,7 @@
 Guzzle plugins
 ==============
 
-> Clients created through the Guzzle service builder need to attach plugins in their `factory` method instead.
+> Clients created through the Guzzle service builder need to attach plugins in their `factory()` method instead.
 
 Guzzle plugins can be created and attached to your clients easily in your bundle.
 
@@ -21,7 +21,7 @@ Next set the username and password parameters from your application's configurat
     $container->setParameter('example.client.curl_auth.username', $config['username']);
     $container->setParameter('example.client.curl_auth.password', $config['password']);
 
-Then attach the plugin service to your client service through the `addSubscriber` method:
+Then attach the plugin service to your client service through the `addSubscriber()` method:
 
     // MyBundle/Resources/config/services.xml
 
