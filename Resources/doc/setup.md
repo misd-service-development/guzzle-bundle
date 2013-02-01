@@ -9,7 +9,7 @@ Setting up the bundle
            // ...
            "require": {
                // ...
-               "misd/guzzle-bundle": "dev-master"
+               "misd/guzzle-bundle": "1.0.*"
            }
         }
 

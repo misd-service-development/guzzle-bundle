@@ -1,8 +1,6 @@
 Param converter
 ===============
 
-*This feature is experimental.*
-
 Clients that have been initialised through the Symfony2 service container and have their [responses deserialized by the JMSSerializerBundle](serialization.html) can make use of the bundle's [parameter converter](http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html).
 
 The syntax is based on the Doctrine param converter.
