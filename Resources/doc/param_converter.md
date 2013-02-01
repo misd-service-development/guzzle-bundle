@@ -19,7 +19,7 @@ The simpliest way is to just type-hint your controller method:
 
 The bundle searches through your clients and finds a `GET` command that has its `responseClass` set as the required class (`Vendor\MyBundle\Post`). If it finds one, it will execute it using the route parameters (ie `{id}`).
 
-A successful response (ie the deserialized `Vendor\MyBundle\Post`) is injected into the method arguments. If the web service returns a `404` response, a Symfony2 `404` exception (`Symfony\Component\HttpKernel\Exception\NotFoundHttpException`) is thrown; with any other abnormal web service response, the normal Guzzle exception is thrown.
+A successful response (ie the deserialized `Vendor\MyBundle\Post`) is injected into the method arguments. If the web service returns a `404` response, a Symfony2 exception (`Symfony\Component\HttpKernel\Exception\NotFoundHttpException`) is thrown; with any other abnormal web service response, the normal Guzzle exception is thrown.
 
 You can configure the conversion in a `@ParamConverter` annotation.
 
