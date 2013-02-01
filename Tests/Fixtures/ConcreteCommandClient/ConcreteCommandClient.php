@@ -15,4 +15,10 @@ use Guzzle\Service\Client;
 
 class ConcreteCommandClient extends Client
 {
+    public static function factory($config = array())
+    {
+        $config['base_url'] = 'http://api.example.com'; // for Guzzle <= 3.0.1
+
+        return parent::factory($config);
+    }
 }
