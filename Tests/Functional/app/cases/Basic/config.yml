@@ -1,2 +1,7 @@
 imports:
     - { resource: ./../../config/default.yml }
+
+monolog:
+    handlers:
+        main:
+            type: 'null'

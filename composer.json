@@ -21,7 +21,8 @@
         "guzzle/guzzle":"~3.0"
     },
     "suggest":{
-        "jms/serializer-bundle":"Serialize/deserialize objects to/from XML, JSON and YAML (version 0.11 or newer)."
+        "jms/serializer-bundle":"Serialize/deserialize objects to/from XML, JSON and YAML (version 0.11 or newer).",
+        "symfony/monolog-bundle":"Log requests"
     },
     "require-dev":{
         "symfony/form":"~2.1",

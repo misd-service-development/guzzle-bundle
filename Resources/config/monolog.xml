@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="misd_guzzle.log.monolog" class="%guzzle.plugin.log.class%" public="false">
+            <tag name="misd_guzzle.plugin"/>
+            <argument type="service" id="misd_guzzle.log.adapter.monolog" on-invalid="ignore"/>
+        </service>
+        <service id="misd_guzzle.log.adapter.monolog" class="%guzzle.log.adapter.monolog.class%" public="false">
+            <tag name="monolog.logger" channel="guzzle"/>
+            <argument type="service" id="monolog.logger" on-invalid="ignore"/>
+        </service>
+
+    </services>
+
+</container>

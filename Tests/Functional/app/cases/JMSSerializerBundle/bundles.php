@@ -11,7 +11,6 @@
 
 return array(
     new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-    new Symfony\Bundle\MonologBundle\MonologBundle(),
     new JMS\SerializerBundle\JMSSerializerBundle($this),
     new Misd\GuzzleBundle\MisdGuzzleBundle(),
 );

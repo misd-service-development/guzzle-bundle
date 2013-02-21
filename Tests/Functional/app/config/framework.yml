@@ -9,11 +9,3 @@ framework:
     default_locale: en
     session:
         storage_id:     session.storage.mock_file
-
-services:
-    logger: { class: Symfony\Component\HttpKernel\Log\NullLogger }
-
-monolog:
-    handlers:
-        main:
-            type: 'null'
