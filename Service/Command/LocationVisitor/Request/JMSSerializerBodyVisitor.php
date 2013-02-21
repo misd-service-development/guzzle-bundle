@@ -15,7 +15,7 @@ use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Service\Command\CommandInterface;
 use Guzzle\Service\Command\LocationVisitor\Request\BodyVisitor;
 use Guzzle\Service\Description\Parameter;
-use JMS\Serializer\Serializer;
+use JMS\Serializer\SerializerInterface;
 
 /**
  * JMSSerializerBundle-enabled request body visitor.
@@ -27,16 +27,16 @@ class JMSSerializerBodyVisitor extends BodyVisitor
     /**
      * Serializer.
      *
-     * @var Serializer|null
+     * @var SerializerInterface|null
      */
     protected $serializer;
 
     /**
      * Constructor.
      *
-     * @param Serializer|null $serializer Serializer, or null if not used.
+     * @param SerializerInterface|null $serializer Serializer, or null if not used.
      */
-    public function __construct(Serializer $serializer = null)
+    public function __construct(SerializerInterface $serializer = null)
     {
         $this->serializer = $serializer;
     }

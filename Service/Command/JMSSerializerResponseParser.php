@@ -14,7 +14,7 @@ namespace Misd\GuzzleBundle\Service\Command;
 use Guzzle\Http\Message\Response;
 use Guzzle\Service\Command\AbstractCommand;
 use Guzzle\Service\Command\DefaultResponseParser;
-use JMS\Serializer\Serializer;
+use JMS\Serializer\SerializerInterface;
 
 /**
  * JMSSerializerBundle-enabled response parser.
@@ -26,16 +26,16 @@ class JMSSerializerResponseParser extends DefaultResponseParser
     /**
      * Serializer.
      *
-     * @var Serializer|null
+     * @var SerializerInterface|null
      */
     protected $serializer;
 
     /**
      * Constructor.
      *
-     * @param Serializer|null $serializer Serializer, or null if not used.
+     * @param SerializerInterface|null $serializer Serializer, or null if not used.
      */
-    public function __construct(Serializer $serializer = null)
+    public function __construct(SerializerInterface $serializer = null)
     {
         $this->serializer = $serializer;
     }
