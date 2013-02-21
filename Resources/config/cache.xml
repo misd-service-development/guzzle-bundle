@@ -11,7 +11,7 @@
 
     <services>
         <service id="misd_guzzle.cache.doctrine.filesystem.adapter" class="%guzzle.cache.doctrine.filesystem.class%">
-            <argument>%kernel.cache_dir%/guzzle/</argument>
+            <argument>%misd_guzzle.cache.filesystem.path%</argument>
         </service>
         <service id="misd_guzzle.cache.doctrine.filesystem" class="%guzzle.cache.doctrine.class%">
             <argument type="service" id="misd_guzzle.cache.doctrine.filesystem.adapter"/>

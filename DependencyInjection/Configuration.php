@@ -38,6 +38,12 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('configuration_file')->defaultValue('%kernel.root_dir%/config/webservices.json')->end()
                     ->end()
                 ->end()
+                ->arrayNode('filesystem_cache')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('path')->defaultValue('%kernel.cache_dir%/guzzle/')->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 

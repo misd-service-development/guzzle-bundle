@@ -57,7 +57,7 @@ Guzzle clients are automatically connected to your Symfony2 application's Monolo
 Caching
 -------
 
-The bundle provides the `misd_guzzle.cache.filesystem` service, which allows you to quickly take advantage of caching (by storing files in your `app/cache` folder). Simply add the service to your client:
+The bundle provides the `misd_guzzle.cache.filesystem` service, which allows you to quickly take advantage of caching. Simply add the service to your client:
 
     // MyBundle/Resources/config/services.xml
 
@@ -69,3 +69,11 @@ The bundle provides the `misd_guzzle.cache.filesystem` service, which allows you
     </service>
 
 This will be slower than using, say, Memcache, but doesn't require any dependencies.
+
+By default the files are stored in `app/cache/{env}/guzzle/`. This can be changed in your configuration:
+
+    // app/config.yml
+
+    misd_guzzle:
+        filesystem_cache:
+            path: "%kernel.cache_dir%/my_folder/"

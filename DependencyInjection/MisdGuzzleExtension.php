@@ -45,5 +45,6 @@ class MisdGuzzleExtension extends Extension
             'guzzle.service_builder.configuration_file',
             $config['service_builder']['configuration_file']
         );
+        $container->setParameter('misd_guzzle.cache.filesystem.path', $config['filesystem_cache']['path']);
     }
 }
