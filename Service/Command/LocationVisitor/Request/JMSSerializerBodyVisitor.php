@@ -46,7 +46,7 @@ class JMSSerializerBodyVisitor extends BodyVisitor
      */
     public function visit(CommandInterface $command, RequestInterface $request, Parameter $param, $value)
     {
-        if (null !== $this->serializer && is_object($value)) {
+        if (null !== $this->serializer && (is_object($value) || is_array($value))) {
             switch ($param->getSentAs()) {
                 case 'json':
                     $request->setHeader('Content-Type', 'application/json');
