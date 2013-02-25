@@ -61,6 +61,36 @@ class JMSSerializerRequestTest extends TestCase
         );
     }
 
+    public function testUpdatePeopleRequest()
+    {
+        // Set fixtures
+        $personOne = new Person();
+        $personOne->id = 1;
+        $personOne->firstName = 'Foo';
+        $personOne->familyName = 'Bar';
+
+        $personTwo = new Person();
+        $personTwo->id = 2;
+        $personTwo->firstName = 'Baz';
+        $personTwo->familyName = 'Fam';
+
+        $people = array($personOne, $personTwo);
+        // End fixtures
+
+        $client = self::getClient('JMSSerializerBundle');
+
+        $command = $client->getCommand('UpdatePeopleJson', array('people' => $people));
+        self::$mock->addResponse(Response::fromMessage(self::response()));
+        $response = $client->execute($command);
+        $request = $response->getRequest();
+
+        $this->assertEquals('application/json', $request->getHeader('Content-Type'));
+        $this->assertEquals(
+            $request->getBody(),
+            self::getContainer('JMSSerializerBundle')->get('serializer')->serialize($people, 'json')
+        );
+    }
+
     protected function person()
     {
         $person = new Person();

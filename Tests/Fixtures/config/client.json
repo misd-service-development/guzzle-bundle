@@ -69,6 +69,19 @@
                     "required":"true"
                 }
             }
+        },
+        "UpdatePeopleJson":{
+            "httpMethod":"POST",
+            "uri":"updatePeople",
+            "summary":"Update people",
+            "parameters":{
+                "people":{
+                    "location":"body",
+                    "type":"array",
+                    "sentAs":"json",
+                    "required":"true"
+                }
+            }
         }
     }
 }
