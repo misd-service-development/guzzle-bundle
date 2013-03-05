@@ -29,6 +29,26 @@
                 }
             }
         },
+        "GetPersonInvalidClass":{
+            "httpMethod":"GET",
+            "uri":"person/{id}",
+            "summary":"Get a person",
+            "responseClass":"Misd\\GuzzleBundle\\Tests\\Fixtures\\NonExistentPerson",
+            "parameters":{
+                "id":{
+                    "location":"query",
+                    "description":"Person to retrieve by ID",
+                    "type":"integer",
+                    "required":true
+                }
+            }
+        },
+        "GetPersonClassArray":{
+            "httpMethod":"GET",
+            "uri":"person",
+            "summary":"Get an array of people",
+            "responseClass":"array<Misd\\GuzzleBundle\\Tests\\Fixtures\\Person>"
+        },
         "AddPerson":{
             "httpMethod":"POST",
             "uri":"person",
