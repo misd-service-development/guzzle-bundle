@@ -1,8 +1,6 @@
 Object (de)serialization
 ========================
 
-*This feature is experimental and the syntax is subject to change.*
-
 The bundle integrates with the [JMSSerializerBundle](http://jmsyst.com/bundles/JMSSerializerBundle), allowing you to easily work with concrete objects without having to create concrete commands.
 
 The JMSSerializerBundle needs to be installed separately.
