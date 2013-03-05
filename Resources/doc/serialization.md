@@ -34,6 +34,24 @@ Executing the `GetPerson` command will now return an instance of `Vendor\MyBundl
     $command = $client->getCommand('GetPerson', array('id' => $id));
     $person = $client->execute($command);
 
+### Arrays
+
+The `responseClass` value can actually be any of the JMS Serializer's `@Type` annotation value forms which contain a classname.
+
+For example, to deserialize a JSON array that doesn't have a root element:
+
+    "GetPeople":{
+        "httpMethod":"GET",
+        "uri":"people",
+        "summary":"Gets an array of people",
+        "responseClass":"array<Vendor\\MyBundle\\Entity\\Person>"
+    }
+
+Executing the `GetPeople` command will now return an array of `Vendor\MyBundle\Entity\Person` instances:
+
+    $command = $client->getCommand('GetPeople');
+    $people = $client->execute($command);
+
 Requests
 --------
 
