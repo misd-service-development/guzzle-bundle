@@ -48,12 +48,22 @@ class RequestListener implements EventSubscriberInterface
     }
 
     /**
+     * Number of open requests.
+     *
+     * @var int
+     */
+    protected $open = 0;
+
+    /**
      * Starts the stopwatch.
      */
     public function onRequestBeforeSend()
     {
         if (null !== $this->stopwatch) {
-            $this->stopwatch->start('Guzzle');
+            if (0 === $this->open) {
+                $this->stopwatch->start('Guzzle');
+            }
+            $this->open++;
         }
     }
 
@@ -63,7 +73,10 @@ class RequestListener implements EventSubscriberInterface
     public function onRequestComplete()
     {
         if (null !== $this->stopwatch) {
-            $this->stopwatch->stop('Guzzle');
+            $this->open--;
+            if (0 === $this->open) {
+                $this->stopwatch->stop('Guzzle');
+            }
         }
     }
 }
