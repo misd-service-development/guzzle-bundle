@@ -14,6 +14,7 @@ namespace Misd\GuzzleBundle\Service\Command;
 use Guzzle\Http\Message\Response;
 use Guzzle\Service\Command\AbstractCommand;
 use Guzzle\Service\Command\DefaultResponseParser;
+use Guzzle\Service\Description\OperationInterface;
 use JMS\Serializer\SerializerInterface;
 
 /**
@@ -73,7 +74,9 @@ class JMSSerializerResponseParser extends DefaultResponseParser
                 $serializerContentType = null;
             }
 
-            if (null !== $serializerContentType && class_exists($command->getOperation()->getResponseClass())) {
+            if (null !== $serializerContentType &&
+                OperationInterface::TYPE_CLASS === $command->getOperation()->getResponseType()
+            ) {
                 return $this->serializer->deserialize(
                     $response->getBody(),
                     $command->getOperation()->getResponseClass(),

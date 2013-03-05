@@ -136,6 +136,47 @@ class JMSSerializerResponseTest extends TestCase
     }
 
     /**
+     * @expectedException \Exception
+     */
+    public function testGetPersonInvalidClassXmlResponseWithSerializer()
+    {
+        $client = self::getClient('JMSSerializerBundle');
+        $command = $client->getCommand('GetPersonInvalidClass', array('id' => 1));
+        self::$mock->addResponse(Response::fromMessage(self::xmlResponse()));
+        $client->execute($command);
+    }
+
+    public function testGetPersonInvalidClassXmlResponseWithoutSerializer()
+    {
+        $client = self::getClient('Basic');
+        $command = $client->getCommand('GetPersonInvalidClass', array('id' => 1));
+        self::$mock->addResponse(Response::fromMessage(self::xmlResponse()));
+
+        $this->assertInstanceOf('SimpleXMLElement', $client->execute($command));
+    }
+
+    public function testGetPersonClassArrayJsonResponseWithSerializer()
+    {
+        $client = self::getClient('JMSSerializerBundle');
+        $command = $client->getCommand('GetPersonClassArray');
+        self::$mock->addResponse(Response::fromMessage(self::jsonArrayResponse()));
+        $people = $client->execute($command);
+
+        $this->assertTrue(is_array($people));
+        $this->assertCount(2, $people);
+
+        $this->assertInstanceOf('Misd\GuzzleBundle\Tests\Fixtures\Person', $people[0]);
+        $this->assertEquals(1, $people[0]->id);
+        $this->assertEquals('Foo', $people[0]->firstName);
+        $this->assertEquals('Bar', $people[0]->familyName);
+
+        $this->assertInstanceOf('Misd\GuzzleBundle\Tests\Fixtures\Person', $people[1]);
+        $this->assertEquals(2, $people[1]->id);
+        $this->assertEquals('Baz', $people[1]->firstName);
+        $this->assertEquals('Qux', $people[1]->familyName);
+    }
+
+    /**
      * @var Client[]
      */
     protected static $clients = array();
@@ -194,6 +235,19 @@ Server: Test
 Content-Type: application/json
 
 {"id":1,"name":"Foo","family-name":"Bar"}
+EOT;
+    }
+
+    protected function jsonArrayResponse()
+    {
+        return <<<EOT
+HTTP/1.1 200 OK
+Date: Wed, 25 Nov 2009 12:00:00 GMT
+Connection: close
+Server: Test
+Content-Type: application/json
+
+[{"id":1,"name":"Foo","family-name":"Bar"},{"id":2,"name":"Baz","family-name":"Qux"}]
 EOT;
     }
 
