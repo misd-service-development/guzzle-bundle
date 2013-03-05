@@ -12,7 +12,7 @@
 namespace Misd\GuzzleBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Debug\Stopwatch;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
  * Adds request length details to the Symfony2 Profiler timeline.
