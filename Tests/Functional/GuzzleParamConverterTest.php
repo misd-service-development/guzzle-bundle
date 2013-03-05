@@ -192,6 +192,7 @@ class GuzzleParamConverterTest extends TestCase
                 'getOptions',
                 'getName',
                 'isOptional',
+                'allowArray',
             )
         );
         if ($class !== null) {
