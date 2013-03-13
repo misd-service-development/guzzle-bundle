@@ -31,8 +31,7 @@
         "symfony/form":"2.1.*",
         "symfony/yaml":"2.1.*",
         "symfony/monolog-bundle":"2.1.*",
-        "jms/serializer-bundle":"~0.11",
-        "jms/di-extra-bundle":"1.3.*@dev"
+        "jms/serializer-bundle":"~0.11"
     },
     "autoload":{
         "psr-0":{
