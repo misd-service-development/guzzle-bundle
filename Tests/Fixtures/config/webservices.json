@@ -1,7 +1,7 @@
 {
     "services": {
         "foo": {
-            "class":"Guzzle\\Service\\Client"
+            "class": "Guzzle\\Service\\Client"
         }
     }
 }
