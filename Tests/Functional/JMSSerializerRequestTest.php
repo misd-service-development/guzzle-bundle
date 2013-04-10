@@ -91,6 +91,20 @@ class JMSSerializerRequestTest extends TestCase
         );
     }
 
+    public function testUpdatePeopleWithFilterRequest()
+    {
+        $people = array('foo' => 'bar', array('baz', 'qux'));
+
+        $client = self::getClient('JMSSerializerBundle');
+
+        $command = $client->getCommand('UpdatePeopleJsonWithFilter', array('people' => $people));
+        self::$mock->addResponse(Response::fromMessage(self::response()));
+        $response = $client->execute($command);
+        $request = $response->getRequest();
+
+        $this->assertEquals($request->getBody(), json_encode($people));
+    }
+
     protected function person()
     {
         $person = new Person();

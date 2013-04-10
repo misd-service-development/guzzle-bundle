@@ -102,6 +102,19 @@
                     "required":"true"
                 }
             }
+        },
+        "UpdatePeopleJsonWithFilter":{
+            "httpMethod":"POST",
+            "uri":"updatePeople",
+            "summary":"Update people",
+            "parameters":{
+                "people":{
+                    "location":"body",
+                    "type":"array",
+                    "filters":["json_encode"],
+                    "required":"true"
+                }
+            }
         }
     }
 }
