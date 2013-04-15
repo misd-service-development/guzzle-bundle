@@ -1,47 +1,47 @@
 {
-    "name":"misd/guzzle-bundle",
-    "type":"symfony-bundle",
-    "description":"Integrates Guzzle into your Symfony2 application",
-    "keywords":["guzzle", "bundle", "http", "http client", "rest", "client", "web service", "curl", "api"],
-    "homepage":"https://github.com/misd-service-development/guzzle-bundle",
-    "license":"MIT",
-    "authors":[
+    "name": "misd/guzzle-bundle",
+    "type": "symfony-bundle",
+    "description": "Integrates Guzzle into your Symfony2 application",
+    "keywords": ["guzzle", "bundle", "http", "http client", "rest", "client", "web service", "curl", "api"],
+    "homepage": "https://github.com/misd-service-development/guzzle-bundle",
+    "license": "MIT",
+    "authors": [
         {
-            "name":"Chris Wilkinson",
-            "email":"chris.wilkinson@admin.cam.ac.uk"
+            "name": "Chris Wilkinson",
+            "email": "chris.wilkinson@admin.cam.ac.uk"
         }
     ],
-    "support":{
-        "issues":"https://github.com/misd-service-development/guzzle-bundle/issues"
+    "support": {
+        "issues": "https://github.com/misd-service-development/guzzle-bundle/issues"
     },
-    "require":{
-        "php":">=5.3.3",
-        "symfony/framework-bundle":"~2.2",
-        "sensio/framework-extra-bundle":"~2.2",
-        "guzzle/guzzle":"~3.0"
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/framework-bundle": "~2.2",
+        "sensio/framework-extra-bundle": "~2.2",
+        "guzzle/guzzle": "~3.0"
     },
-    "suggest":{
-        "jms/serializer-bundle":"Serialize/deserialize objects to/from XML, JSON and YAML",
-        "symfony/monolog-bundle":"Log requests"
+    "suggest": {
+        "jms/serializer-bundle": "Serialize/deserialize objects to/from XML, JSON and YAML",
+        "symfony/monolog-bundle": "Log requests"
     },
     "conflict": {
         "jms/serializer-bundle": "<0.11-dev"
     },
-    "require-dev":{
-        "symfony/form":"~2.2",
-        "symfony/yaml":"~2.2",
-        "symfony/monolog-bundle":"~2.2",
-        "jms/serializer-bundle":"~0.11"
+    "require-dev": {
+        "symfony/form": "~2.2",
+        "symfony/yaml": "~2.2",
+        "symfony/monolog-bundle": "~2.2",
+        "jms/serializer-bundle": "~0.11"
     },
-    "autoload":{
-        "psr-0":{
-            "Misd\\GuzzleBundle":""
+    "autoload": {
+        "psr-0": {
+            "Misd\\GuzzleBundle": ""
         }
     },
-    "target-dir":"Misd/GuzzleBundle",
-    "extra":{
-        "branch-alias":{
-            "dev-master":"1.1-dev"
+    "target-dir": "Misd/GuzzleBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.1-dev"
         }
     }
 }
