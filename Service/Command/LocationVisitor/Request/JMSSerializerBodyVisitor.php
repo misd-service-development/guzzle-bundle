@@ -46,7 +46,9 @@ class JMSSerializerBodyVisitor extends BodyVisitor
      */
     public function visit(CommandInterface $command, RequestInterface $request, Parameter $param, $value)
     {
-        if (null !== $this->serializer && (is_object($value) || is_array($value))) {
+        $filteredValue = $param->filter($value);
+
+        if (null !== $this->serializer && (is_object($filteredValue) || is_array($filteredValue))) {
             switch ($param->getSentAs()) {
                 case 'json':
                     $request->setHeader('Content-Type', 'application/json');
@@ -62,7 +64,7 @@ class JMSSerializerBodyVisitor extends BodyVisitor
                     $contentType = 'xml';
                     break;
             }
-            $value = $this->serializer->serialize($value, $contentType);
+            $value = $this->serializer->serialize($filteredValue, $contentType);
         }
 
         parent::visit($command, $request, $param, $value);
