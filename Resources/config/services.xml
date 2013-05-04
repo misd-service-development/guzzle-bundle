@@ -32,6 +32,7 @@
         <service id="misd_guzzle.log.array" class="%guzzle.plugin.log.class%" public="false">
             <tag name="misd_guzzle.plugin"/>
             <argument type="service" id="misd_guzzle.log.adapter.array"/>
+            <argument>%guzzle.log.format%</argument>
         </service>
         <service id="misd_guzzle.log.adapter.array" class="%guzzle.log.adapter.array.class%" public="false"/>
         <service id="misd_guzzle.data_collector" class="%misd_guzzle.data_collector.class%">
