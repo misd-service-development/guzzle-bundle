@@ -94,7 +94,7 @@ class GuzzleParamConverter implements ParamConverterInterface
             if (true === $configuration->isOptional()) {
                 $result = null;
             } elseif (404 === $e->getResponse()->getStatusCode()) {
-                throw new NotFoundHttpException(sprintf('%s object not found.', $class));
+                throw new NotFoundHttpException(sprintf('%s object not found.', $class), $e);
             } else {
                 throw $e;
             }
