@@ -44,6 +44,12 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('path')->defaultValue('%kernel.cache_dir%/guzzle/')->end()
                     ->end()
                 ->end()
+                ->arrayNode('log')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('format')->defaultValue('default')->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 

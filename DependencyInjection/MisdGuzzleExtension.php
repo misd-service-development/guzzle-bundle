@@ -46,5 +46,11 @@ class MisdGuzzleExtension extends Extension
             $config['service_builder']['configuration_file']
         );
         $container->setParameter('misd_guzzle.cache.filesystem.path', $config['filesystem_cache']['path']);
+
+        $logFormat = $config['log']['format'];
+        if (in_array($logFormat, array('default', 'debug', 'short'))) {
+            $logFormat = constant(sprintf('Guzzle\Log\MessageFormatter::%s_FORMAT', strtoupper($logFormat)));
+        }
+        $container->setParameter('misd_guzzle.log.format', $logFormat);
     }
 }
