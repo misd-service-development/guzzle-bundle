@@ -51,7 +51,6 @@ class ContainerTest extends AbstractTestCase
         $this->assertTrue($container->has('misd_guzzle.log.array'));
         $this->assertInstanceOf('Guzzle\Plugin\Log\LogPlugin', $container->get('misd_guzzle.log.array'));
         $this->assertTrue($container->getDefinition('misd_guzzle.log.array')->hasTag('misd_guzzle.plugin'));
-        $this->assertEquals(MessageFormatter::DEFAULT_FORMAT, $container->getDefinition('misd_guzzle.log.array')->getArgument(1));
 
         $this->assertTrue($container->has('misd_guzzle.log.adapter.array'));
         $this->assertInstanceOf('Guzzle\Log\ArrayLogAdapter', $container->get('misd_guzzle.log.adapter.array'));
@@ -209,7 +208,6 @@ class ContainerTest extends AbstractTestCase
     public function testLogFormat($parameter, $format = null)
     {
         $container = $this->getContainer(array(array('log' => array('format' => $parameter))));
-        $this->assertEquals($format ?: $parameter, $container->getDefinition('misd_guzzle.log.array')->getArgument(1));
         $this->assertEquals($format ?: $parameter, $container->getDefinition('misd_guzzle.log.monolog')->getArgument(1));
     }
 

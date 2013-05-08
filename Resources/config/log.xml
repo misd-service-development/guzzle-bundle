@@ -7,7 +7,6 @@
     <parameters>
         <parameter key="guzzle.log.adapter.monolog.class">Guzzle\Log\MonologLogAdapter</parameter>
         <parameter key="guzzle.log.adapter.array.class">Guzzle\Log\ArrayLogAdapter</parameter>
-        <parameter key="guzzle.log.format" />
     </parameters>
 
 </container>

@@ -51,6 +51,6 @@ class MisdGuzzleExtension extends Extension
         if (in_array($logFormat, array('default', 'debug', 'short'))) {
             $logFormat = constant(sprintf('Guzzle\Log\MessageFormatter::%s_FORMAT', strtoupper($logFormat)));
         }
-        $container->setParameter('guzzle.log.format', $logFormat);
+        $container->setParameter('misd_guzzle.log.format', $logFormat);
     }
 }
