@@ -13,6 +13,7 @@
         <parameter key="misd_guzzle.param_converter.class">Misd\GuzzleBundle\Request\ParamConverter\GuzzleParamConverter</parameter>
         <parameter key="misd_guzzle.request.visitor.body.class">Misd\GuzzleBundle\Service\Command\LocationVisitor\Request\JMSSerializerBodyVisitor</parameter>
         <parameter key="misd_guzzle.response.parser.class">Misd\GuzzleBundle\Service\Command\JMSSerializerResponseParser</parameter>
+        <parameter key="misd_guzzle.log.format" />
     </parameters>
 
     <services>

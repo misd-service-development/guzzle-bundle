@@ -54,6 +54,13 @@ Logging
 
 Guzzle clients are automatically connected to your Symfony2 application's Monolog through the `misd_guzzle.log.monolog` service.
 
+Log format can be customized through the configuration:
+
+    // app/config.yml
+    misd_guzzle:
+        log:
+            format: debug # default/debug/short or custom MessageFormatter string
+
 Caching
 -------
 

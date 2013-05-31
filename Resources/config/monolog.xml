@@ -9,6 +9,7 @@
         <service id="misd_guzzle.log.monolog" class="%guzzle.plugin.log.class%" public="false">
             <tag name="misd_guzzle.plugin"/>
             <argument type="service" id="misd_guzzle.log.adapter.monolog" on-invalid="ignore"/>
+            <argument>%misd_guzzle.log.format%</argument>
         </service>
         <service id="misd_guzzle.log.adapter.monolog" class="%guzzle.log.adapter.monolog.class%" public="false">
             <tag name="monolog.logger" channel="guzzle"/>

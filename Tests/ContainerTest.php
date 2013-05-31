@@ -11,6 +11,7 @@
 
 namespace Misd\GuzzleBundle\Tests\DependencyInjection;
 
+use Guzzle\Log\MessageFormatter;
 use Misd\GuzzleBundle\Tests\AbstractTestCase;
 
 class ContainerTest extends AbstractTestCase
@@ -90,6 +91,7 @@ class ContainerTest extends AbstractTestCase
         $this->assertTrue($container->has('misd_guzzle.log.monolog'));
         $this->assertInstanceOf('Guzzle\Plugin\Log\LogPlugin', $container->get('misd_guzzle.log.monolog'));
         $this->assertTrue($container->getDefinition('misd_guzzle.log.monolog')->hasTag('misd_guzzle.plugin'));
+        $this->assertEquals(MessageFormatter::DEFAULT_FORMAT, $container->getDefinition('misd_guzzle.log.monolog')->getArgument(1));
 
         $this->assertTrue($container->has('misd_guzzle.log.adapter.monolog'));
         $this->assertInstanceOf('Guzzle\Log\MonologLogAdapter', $container->get('misd_guzzle.log.adapter.monolog'));
@@ -198,5 +200,23 @@ class ContainerTest extends AbstractTestCase
         $configs[] = array('guzzle' => array('service_builder' => array('configuration_file' => '%kernel.root_dir%/config/alt-webservices.json')));
 
         return $configs;
+    }
+
+    /**
+     * @dataProvider logFormats
+     */
+    public function testLogFormat($parameter, $format = null)
+    {
+        $container = $this->getContainer(array(array('log' => array('format' => $parameter))));
+        $this->assertEquals($format ?: $parameter, $container->getDefinition('misd_guzzle.log.monolog')->getArgument(1));
+    }
+
+    public function logFormats()
+    {
+        return array(
+            array('debug', MessageFormatter::DEBUG_FORMAT),
+            array('short', MessageFormatter::SHORT_FORMAT),
+            array('foo bar baz')
+        );
     }
 }
