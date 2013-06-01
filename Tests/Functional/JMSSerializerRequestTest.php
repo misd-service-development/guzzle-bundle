@@ -20,9 +20,7 @@ class JMSSerializerRequestTest extends TestCase
     {
         $client = self::getClient('JMSSerializerBundle');
         $command = $client->getCommand('AddPerson', array('person' => self::person1()));
-        self::$mock->addResponse(new Response(201));
-        $response = $client->execute($command);
-        $request = $response->getRequest();
+        $request = $command->prepare();
 
         $this->assertEquals('application/xml', $request->getHeader('Content-Type'));
         $this->assertEquals(
@@ -35,9 +33,7 @@ class JMSSerializerRequestTest extends TestCase
     {
         $client = self::getClient('JMSSerializerBundle');
         $command = $client->getCommand('AddPersonJson', array('person' => self::person1()));
-        self::$mock->addResponse(new Response(201));
-        $response = $client->execute($command);
-        $request = $response->getRequest();
+        $request = $command->prepare();
 
         $this->assertEquals('application/json', $request->getHeader('Content-Type'));
         $this->assertEquals(
@@ -51,8 +47,7 @@ class JMSSerializerRequestTest extends TestCase
         $client = self::getClient('JMSSerializerBundle');
         $command = $client->getCommand('AddPersonYaml', array('person' => self::person1()));
         self::$mock->addResponse(new Response(201));
-        $response = $client->execute($command);
-        $request = $response->getRequest();
+        $request = $command->prepare();
 
         $this->assertEquals('application/yaml', $request->getHeader('Content-Type'));
         $this->assertEquals(
@@ -68,9 +63,7 @@ class JMSSerializerRequestTest extends TestCase
         $client = self::getClient('JMSSerializerBundle');
 
         $command = $client->getCommand('UpdatePeopleJson', array('people' => $people));
-        self::$mock->addResponse(new Response(201));
-        $response = $client->execute($command);
-        $request = $response->getRequest();
+        $request = $command->prepare();
 
         $this->assertEquals('application/json', $request->getHeader('Content-Type'));
         $this->assertEquals(
@@ -86,9 +79,7 @@ class JMSSerializerRequestTest extends TestCase
         $client = self::getClient('JMSSerializerBundle');
 
         $command = $client->getCommand('UpdatePeopleJsonWithFilter', array('people' => $people));
-        self::$mock->addResponse(new Response(201));
-        $response = $client->execute($command);
-        $request = $response->getRequest();
+        $request = $command->prepare();
 
         $this->assertEquals($request->getBody(), json_encode($people));
     }

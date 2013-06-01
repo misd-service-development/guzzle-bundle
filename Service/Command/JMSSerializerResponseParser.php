@@ -14,7 +14,9 @@ namespace Misd\GuzzleBundle\Service\Command;
 use Guzzle\Http\Message\Response;
 use Guzzle\Service\Command\AbstractCommand;
 use Guzzle\Service\Command\DefaultResponseParser;
+use Guzzle\Service\Command\ResponseParserInterface;
 use Guzzle\Service\Description\OperationInterface;
+use Guzzle\Service\Command\CommandInterface;
 use JMS\Serializer\SerializerInterface;
 
 /**
@@ -22,7 +24,7 @@ use JMS\Serializer\SerializerInterface;
  *
  * @author Chris Wilkinson <chris.wilkinson@admin.cam.ac.uk>
  */
-class JMSSerializerResponseParser extends DefaultResponseParser
+class JMSSerializerResponseParser implements ResponseParserInterface
 {
     /**
      * Serializer.
@@ -32,40 +34,54 @@ class JMSSerializerResponseParser extends DefaultResponseParser
     protected $serializer;
 
     /**
+     * Parser.
+     *
+     * @var ResponseParserInterface
+     */
+    protected $parser;
+
+    /**
      * Constructor.
      *
      * @param SerializerInterface|null $serializer Serializer, or null if not used.
+     * @param ResponseParserInterface  $parser     Default parser to use if the serializer cannot parse the response
      */
-    public function __construct(SerializerInterface $serializer = null)
+    public function __construct(SerializerInterface $serializer = null, ResponseParserInterface $parser = null)
     {
         $this->serializer = $serializer;
+        $this->parser = $parser ?: DefaultResponseParser::getInstance();
+    }
+
+    /**
+     * {@inhertidoc}
+     */
+    public function parse(CommandInterface $command)
+    {
+        $response = $command->getRequest()->getResponse();
+        $contentType = (string) $response->getHeader('Content-Type');
+
+        return $this->handleParsing($command, $response, $contentType);
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function handleParsing(AbstractCommand $command, Response $response, $contentType)
+    protected function handleParsing(CommandInterface $command, Response $response, $contentType)
     {
         $deserialized = $this->deserialize($command, $response, $contentType);
 
-        return null !== $deserialized ? $deserialized : parent::handleParsing($command, $response, $contentType);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * Used in <= Guzzle 3.1.1 (renamed `handleParsing()` in 3.1.2).
-     */
-    public function parseForContentType(AbstractCommand $command, Response $response, $contentType)
-    {
-        $deserialized = $this->deserialize($command, $response, $contentType);
-
-        return null !== $deserialized ? $deserialized : parent::parseForContentType($command, $response, $contentType);
+        if (null !== $deserialized) {
+            return $deserialized;
+        } elseif ($this->parser) {
+            return $this->parser->parse($command);
+        } else {
+            return $command->getResponse();
+        }
     }
 
     protected function deserialize(AbstractCommand $command, Response $response, $contentType)
     {
-        if (null !== $this->serializer) {
+        if ($this->serializer) {
             if (false !== stripos($contentType, 'json')) {
                 $serializerContentType = 'json';
             } elseif (false !== stripos($contentType, 'xml')) {
