@@ -12,7 +12,7 @@
 namespace Misd\GuzzleBundle\Service\Command;
 
 use Guzzle\Http\Message\Response;
-use Guzzle\Service\Command\AbstractCommand;
+use Guzzle\Service\Command\CommandInterface;
 use Guzzle\Service\Command\DefaultResponseParser;
 use Guzzle\Service\Description\OperationInterface;
 use JMS\Serializer\SerializerInterface;
@@ -44,7 +44,7 @@ class JMSSerializerResponseParser extends DefaultResponseParser
     /**
      * {@inheritdoc}
      */
-    protected function handleParsing(AbstractCommand $command, Response $response, $contentType)
+    protected function handleParsing(CommandInterface $command, Response $response, $contentType)
     {
         $deserialized = $this->deserialize($command, $response, $contentType);
 
@@ -56,14 +56,14 @@ class JMSSerializerResponseParser extends DefaultResponseParser
      *
      * Used in <= Guzzle 3.1.1 (renamed `handleParsing()` in 3.1.2).
      */
-    public function parseForContentType(AbstractCommand $command, Response $response, $contentType)
+    public function parseForContentType(CommandInterface $command, Response $response, $contentType)
     {
         $deserialized = $this->deserialize($command, $response, $contentType);
 
         return null !== $deserialized ? $deserialized : parent::parseForContentType($command, $response, $contentType);
     }
 
-    protected function deserialize(AbstractCommand $command, Response $response, $contentType)
+    protected function deserialize(CommandInterface $command, Response $response, $contentType)
     {
         if (null !== $this->serializer) {
             if (false !== stripos($contentType, 'json')) {
