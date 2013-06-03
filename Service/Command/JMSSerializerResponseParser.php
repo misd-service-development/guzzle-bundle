@@ -13,6 +13,7 @@ namespace Misd\GuzzleBundle\Service\Command;
 
 use Guzzle\Http\Message\Response;
 use Guzzle\Service\Command\AbstractCommand;
+use Guzzle\Service\Command\CommandInterface;
 use Guzzle\Service\Command\DefaultResponseParser;
 use Guzzle\Service\Description\OperationInterface;
 use JMS\Serializer\SerializerInterface;
@@ -44,7 +45,7 @@ class JMSSerializerResponseParser extends DefaultResponseParser
     /**
      * {@inheritdoc}
      */
-    protected function handleParsing(AbstractCommand $command, Response $response, $contentType)
+    protected function handleParsing(CommandInterface $command, Response $response, $contentType)
     {
         $deserialized = $this->deserialize($command, $response, $contentType);
 
