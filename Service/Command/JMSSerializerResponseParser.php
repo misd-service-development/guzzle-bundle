@@ -12,15 +12,13 @@
 namespace Misd\GuzzleBundle\Service\Command;
 
 use Guzzle\Http\Message\Response;
-use Guzzle\Service\Command\AbstractCommand;
-use Guzzle\Service\Command\DefaultResponseParser;
 use Guzzle\Service\Command\ResponseParserInterface;
 use Guzzle\Service\Description\OperationInterface;
 use Guzzle\Service\Command\CommandInterface;
 use JMS\Serializer\SerializerInterface;
 
 /**
- * JMSSerializerBundle-enabled response parser.
+ * JMSSerializer-enabled response parser.
  *
  * @author Chris Wilkinson <chris.wilkinson@admin.cam.ac.uk>
  */
@@ -34,26 +32,26 @@ class JMSSerializerResponseParser implements ResponseParserInterface
     protected $serializer;
 
     /**
-     * Parser.
+     * Fallback parser.
      *
      * @var ResponseParserInterface
      */
-    protected $parser;
+    protected $fallback;
 
     /**
      * Constructor.
      *
      * @param SerializerInterface|null $serializer Serializer, or null if not used.
-     * @param ResponseParserInterface  $parser     Default parser to use if the serializer cannot parse the response
+     * @param ResponseParserInterface  $fallback   Fallback parser to use if the serializer cannot parse the response.
      */
-    public function __construct(SerializerInterface $serializer = null, ResponseParserInterface $parser = null)
+    public function __construct(SerializerInterface $serializer = null, ResponseParserInterface $fallback)
     {
         $this->serializer = $serializer;
-        $this->parser = $parser ?: DefaultResponseParser::getInstance();
+        $this->fallback = $fallback;
     }
 
     /**
-     * {@inhertidoc}
+     * {@inheritdoc}
      */
     public function parse(CommandInterface $command)
     {
@@ -64,7 +62,13 @@ class JMSSerializerResponseParser implements ResponseParserInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Handle the parsing.
+     *
+     * @param CommandInterface $command     Command.
+     * @param Response         $response    Response.
+     * @param string           $contentType Content type.
+     *
+     * @return mixed Returns the result to set on the command.
      */
     protected function handleParsing(CommandInterface $command, Response $response, $contentType)
     {
@@ -72,14 +76,21 @@ class JMSSerializerResponseParser implements ResponseParserInterface
 
         if (null !== $deserialized) {
             return $deserialized;
-        } elseif ($this->parser) {
-            return $this->parser->parse($command);
         } else {
-            return $command->getResponse();
+            return $this->fallback->parse($command);
         }
     }
 
-    protected function deserialize(AbstractCommand $command, Response $response, $contentType)
+    /**
+     * Deserialize the response.
+     *
+     * @param CommandInterface $command     Command.
+     * @param Response         $response    Response.
+     * @param string           $contentType Content type.
+     *
+     * @return mixed|null Deserialized response, or `null`.
+     */
+    protected function deserialize(CommandInterface $command, Response $response, $contentType)
     {
         if ($this->serializer) {
             if (false !== stripos($contentType, 'json')) {
