@@ -11,6 +11,7 @@ Authors
 -------
 
 * Chris Wilkinson <chris.wilkinson@admin.cam.ac.uk>
+* [The Symfony and Guzzle communities](https://github.com/misd-service-development/guzzle-bundle/contributors)
 
 Documentation
 -------------
