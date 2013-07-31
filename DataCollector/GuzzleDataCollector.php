@@ -11,6 +11,7 @@
 
 namespace Misd\GuzzleBundle\DataCollector;
 
+use Guzzle\Http\Message\Response as GuzzleResponse;
 use Guzzle\Log\ArrayLogAdapter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,12 +30,24 @@ class GuzzleDataCollector extends DataCollector
     {
         foreach ($this->logAdapter->getLogs() as $log) {
             $datum['message'] = $log['message'];
+            $datum['time'] =  $this->getRequestTime($log['extras']['response']);
             $datum['request'] = (string) $log['extras']['request'];
-            $datum['response'] = (string) $log['extras']['response'];
+            $datum['response'] = (string)$log['extras']['response'];
             $datum['is_error'] = $log['extras']['response']->isError();
 
             $this->data['requests'][] = $datum;
         }
+    }
+
+    private function getRequestTime(GuzzleResponse $response)
+    {
+        $time = $response->getInfo('total_time');
+
+        if (null === $time) {
+            $time = 0;
+        }
+
+        return (int)($time * 1000);
     }
 
     public function getRequests()
