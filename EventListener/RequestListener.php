@@ -11,6 +11,7 @@
 
 namespace Misd\GuzzleBundle\EventListener;
 
+use Guzzle\Http\Message\Request;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 
@@ -56,12 +57,15 @@ class RequestListener implements EventSubscriberInterface
 
     /**
      * Starts the stopwatch.
+     * @param array $context
      */
-    public function onRequestBeforeSend()
+    public function onRequestBeforeSend($context)
     {
         if (null !== $this->stopwatch) {
             if (0 === $this->open) {
-                $this->stopwatch->start('Guzzle');
+                $name = $this->getEventName($context);
+
+                $this->stopwatch->start($name, 'guzzle');
             }
             $this->open++;
         }
@@ -69,14 +73,29 @@ class RequestListener implements EventSubscriberInterface
 
     /**
      * Stops the stopwatch.
+     * @param array $context
      */
-    public function onRequestComplete()
+    public function onRequestComplete($context)
     {
         if (null !== $this->stopwatch) {
             $this->open--;
             if (0 === $this->open) {
-                $this->stopwatch->stop('Guzzle');
+                $name = $this->getEventName($context);
+
+                $this->stopwatch->stop($name);
             }
         }
+    }
+
+    /**
+     * @param array $context
+     * @return string
+     */
+    private function getEventName($context)
+    {
+        /** @var Request $request */
+        $request = $context['request'];
+
+        return $request->getMethod() . ' ' . urldecode($request->getPath());
     }
 }
