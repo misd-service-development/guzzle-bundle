@@ -184,17 +184,8 @@ class GuzzleParamConverterTest extends TestCase
      */
     protected function createConfiguration($class = null, array $options = null, $name = 'arg', $isOptional = false)
     {
-        $config = $this->getMock(
-            'Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface',
-            array(
-                'getClass',
-                'getAliasName',
-                'getOptions',
-                'getName',
-                'isOptional',
-                'allowArray',
-            )
-        );
+        $config = $this->getMockBuilder('Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter')
+            ->disableOriginalConstructor()->getMock();
         if ($class !== null) {
             $config->expects($this->any())
                 ->method('getClass')
