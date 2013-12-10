@@ -5,6 +5,8 @@ Clients that have been initialised through the Symfony2 service container and ha
 
 The syntax is based on the Doctrine param converter.
 
+The SensioFrameworkExtraBundle needs to be installed separately.
+
 Basic usage
 -----------
 
