@@ -45,6 +45,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->arrayNode('log')
+                    ->canBeDisabled()
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('format')->defaultValue('default')->end()

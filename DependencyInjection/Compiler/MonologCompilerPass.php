@@ -28,7 +28,7 @@ class MonologCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (false === $container->has('monolog.logger')) {
+        if (false === $container->has('monolog.logger') || false === $container->getParameter('misd_guzzle.log.enabled')) {
             return;
         }
 
