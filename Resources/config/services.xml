@@ -10,7 +10,6 @@
         <parameter key="misd_guzzle.data_collector.class">Misd\GuzzleBundle\DataCollector\GuzzleDataCollector</parameter>
         <parameter key="misd_guzzle.listener.command.class">Misd\GuzzleBundle\EventListener\CommandListener</parameter>
         <parameter key="misd_guzzle.listener.request_listener.class">Misd\GuzzleBundle\EventListener\RequestListener</parameter>
-        <parameter key="misd_guzzle.param_converter.class">Misd\GuzzleBundle\Request\ParamConverter\GuzzleParamConverter</parameter>
         <parameter key="misd_guzzle.request.visitor.body.class">Misd\GuzzleBundle\Service\Command\LocationVisitor\Request\JMSSerializerBodyVisitor</parameter>
         <parameter key="misd_guzzle.response.parser.class">Misd\GuzzleBundle\Service\Command\JMSSerializerResponseParser</parameter>
         <parameter key="misd_guzzle.response.parser.fallback.class">Guzzle\Service\Command\OperationResponseParser</parameter>

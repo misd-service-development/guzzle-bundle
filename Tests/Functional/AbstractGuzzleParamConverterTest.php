@@ -13,21 +13,18 @@ namespace Misd\GuzzleBundle\Tests\Functional;
 
 use Guzzle\Http\Message\Response;
 use Guzzle\Service\Client;
-use Misd\GuzzleBundle\Request\ParamConverter\GuzzleParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface;
+use Misd\GuzzleBundle\Request\ParamConverter\AbstractGuzzleParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 
-class GuzzleParamConverterTest extends TestCase
+abstract class AbstractGuzzleParamConverterTest extends TestCase
 {
     /**
-     * @var GuzzleParamConverter
+     * @var AbstractGuzzleParamConverter
      */
-    private $converter;
+    protected $converter;
 
     public function setUp()
     {
-        $this->converter = new GuzzleParamConverter();
-
         $this->converter->registerClient('without.description', new Client());
         $this->converter->registerClient('with.description', self::getClient('JMSSerializerBundle'));
     }
@@ -185,7 +182,19 @@ class GuzzleParamConverterTest extends TestCase
     protected function createConfiguration($class = null, array $options = null, $name = 'arg', $isOptional = false)
     {
         $config = $this->getMockBuilder('Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter')
-            ->disableOriginalConstructor()->getMock();
+            ->disableOriginalConstructor()
+            ->setMethods(
+                array(
+                    'getClass',
+                    'getAliasName',
+                    'getOptions',
+                    'getName',
+                    'isOptional',
+                    'allowArray',
+                )
+            )
+            ->getMock()
+        ;
         if ($class !== null) {
             $config->expects($this->any())
                 ->method('getClass')
