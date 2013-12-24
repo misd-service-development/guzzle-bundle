@@ -1,6 +1,18 @@
 Changelog for 1.1.*
 ===================
 
+1.1.2
+-----
+
+24 December 2013.
+
+* No longer has a hard dependency on the SensioFrameworkExtraBundle.
+* Made compatible with both the SensioFrameworkExtraBundle 2.x and 3.x.
+* Allow logging to be disabled.
+* Show requests separately in the profiler timeline.
+* Prevent requests from appearing more than once on the profiler page.
+* Add time details to the profiler page.
+
 1.1.1
 -----
 
