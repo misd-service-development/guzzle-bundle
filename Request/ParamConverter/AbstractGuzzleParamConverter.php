@@ -24,7 +24,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *
  * @author Chris Wilkinson <chris.wilkinson@admin.cam.ac.uk>
  */
-class GuzzleParamConverter implements ParamConverterInterface
+abstract class AbstractGuzzleParamConverter implements ParamConverterInterface
 {
     /**
      * @var ClientInterface[]
@@ -43,9 +43,17 @@ class GuzzleParamConverter implements ParamConverterInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Stores the object in the request.
+     *
+     * @param Request        $request       The request
+     * @param ParamConverter $configuration Contains the name, class and options of the object
+     *
+     * @return boolean True if the object has been successfully set, else false
+     *
+     * @throws NotFoundHttpException
+     * @throws BadResponseException
      */
-    public function apply(Request $request, ParamConverter $configuration)
+    protected function execute(Request $request, ParamConverter $configuration)
     {
         $found = $this->find($configuration);
 
@@ -103,14 +111,6 @@ class GuzzleParamConverter implements ParamConverterInterface
         $request->attributes->set($name, $result);
 
         return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function supports(ParamConverter $configuration)
-    {
-        return null !== $this->find($configuration);
     }
 
     /**

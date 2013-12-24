@@ -81,10 +81,27 @@ class ContainerTest extends AbstractTestCase
         );
 
         $this->assertTrue($container->has('misd_guzzle.param_converter'));
-        $this->assertInstanceOf(
-            'Misd\GuzzleBundle\Request\ParamConverter\GuzzleParamConverter',
-            $container->get('misd_guzzle.param_converter')
+
+        // the  misd_guzzle.param_converter implementation depends on the
+        // version of the SensioFrameworkExtraBundle
+        $parameter = new \ReflectionParameter(
+            array(
+                'Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface',
+                'supports',
+            ),
+            'configuration'
         );
+        if ('Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter' == $parameter->getClass()->getName()) {
+            $this->assertInstanceOf(
+                'Misd\GuzzleBundle\Request\ParamConverter\GuzzleParamConverter3x',
+                $container->get('misd_guzzle.param_converter')
+            );
+        } else {
+            $this->assertInstanceOf(
+                'Misd\GuzzleBundle\Request\ParamConverter\GuzzleParamConverter2x',
+                $container->get('misd_guzzle.param_converter')
+            );
+        }
 
         // monolog
 

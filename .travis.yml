@@ -7,14 +7,17 @@ php:
   - 5.5
 
 env:
-  - SYMFONY_VERSION="2.2.0" GUZZLE_VERSION="3.0.0"
-  - SYMFONY_VERSION="2.2.0" GUZZLE_VERSION="~3.1"
-  - SYMFONY_VERSION="~2.2"  GUZZLE_VERSION="3.0.0"
-  - SYMFONY_VERSION="~2.2"  GUZZLE_VERSION="~3.1"
+  - SYMFONY_VERSION="2.2.0" GUZZLE_VERSION="3.0.0" SENSIO_FRAMEWORK_EXTRA_VERSION="~2.2"
+  - SYMFONY_VERSION="2.2.0" GUZZLE_VERSION="~3.1" SENSIO_FRAMEWORK_EXTRA_VERSION="~2.2"
+  - SYMFONY_VERSION="~2.3.0"  GUZZLE_VERSION="3.0.0" SENSIO_FRAMEWORK_EXTRA_VERSION="~2.2"
+  - SYMFONY_VERSION="~2.3.0"  GUZZLE_VERSION="~3.1" SENSIO_FRAMEWORK_EXTRA_VERSION="~2.2"
+  - SYMFONY_VERSION="~2.4"  GUZZLE_VERSION="3.0.0" SENSIO_FRAMEWORK_EXTRA_VERSION="~3.0"
+  - SYMFONY_VERSION="~2.4"  GUZZLE_VERSION="~3.1" SENSIO_FRAMEWORK_EXTRA_VERSION="~3.0"
 
 before_script:
   - composer require symfony/framework-bundle:${SYMFONY_VERSION} --no-update
   - composer require guzzle/guzzle:${GUZZLE_VERSION} --no-update
+  - composer require sensio/framework-extra-bundle:${SENSIO_FRAMEWORK_EXTRA_VERSION} --dev --no-update
   - composer install --dev --prefer-source
 
 script: ./vendor/bin/phpunit

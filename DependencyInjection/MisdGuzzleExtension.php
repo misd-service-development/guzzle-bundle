@@ -37,6 +37,30 @@ class MisdGuzzleExtension extends Extension
         $loader->load('log.xml');
         $loader->load('cache.xml');
 
+        if (interface_exists('Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface')) {
+            // choose a ParamConverterInterface implementation that is compatible
+            // with the version of SensioFrameworkExtraBundle being used
+            $parameter = new \ReflectionParameter(
+                array(
+                    'Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface',
+                    'supports',
+                ),
+                'configuration'
+            );
+            if ('Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter' == $parameter->getClass()->getName()) {
+                $container->setParameter(
+                    'misd_guzzle.param_converter.class',
+                    'Misd\GuzzleBundle\Request\ParamConverter\GuzzleParamConverter3x'
+                );
+            } else {
+                $container->setParameter(
+                    'misd_guzzle.param_converter.class',
+                    'Misd\GuzzleBundle\Request\ParamConverter\GuzzleParamConverter2x'
+                );
+            }
+            $loader->load('param_converter.xml');
+        }
+
         $container->setParameter(
             'guzzle.service_builder.class',
             $config['service_builder']['class']
