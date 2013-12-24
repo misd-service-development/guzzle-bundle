@@ -29,13 +29,19 @@ class GuzzleDataCollector extends DataCollector
     public function collect(Request $request, Response $response, \Exception $exception = null)
     {
         foreach ($this->logAdapter->getLogs() as $log) {
+            $requestId = spl_object_hash($log['extras']['request']);
+
+            if (isset($this->data['requests'][$requestId])) {
+                continue;
+            }
+
             $datum['message'] = $log['message'];
             $datum['time'] = $this->getRequestTime($log['extras']['response']);
             $datum['request'] = (string) $log['extras']['request'];
             $datum['response'] = (string) $log['extras']['response'];
             $datum['is_error'] = $log['extras']['response']->isError();
 
-            $this->data['requests'][] = $datum;
+            $this->data['requests'][$requestId] = $datum;
         }
     }
 
