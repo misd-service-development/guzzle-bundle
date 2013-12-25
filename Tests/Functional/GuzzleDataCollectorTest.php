@@ -34,7 +34,7 @@ class GuzzleDataCollectorTest extends TestCase
 
         $this->assertCount(1, $collector->getCalls());
     }
-    
+
     public function testEmptyArrayWhenNoRequests()
     {
         $historyPlugin = new HistoryPluginStub($this->getStubCalls());
