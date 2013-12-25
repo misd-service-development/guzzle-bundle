@@ -1,0 +1,7 @@
+<div class="guzzle">
+    <h2>Requests</h2>
+    {% for index,call in calls %}
+        {% include 'MisdGuzzleBundle:Profiler:call.html.twig' with { 'call': call } %}
+    {% endfor %}
+</div>
+{% include 'MisdGuzzleBundle:Profiler:javascript.html.twig' %}

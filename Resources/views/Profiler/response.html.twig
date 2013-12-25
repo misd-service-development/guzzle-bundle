@@ -1,0 +1,32 @@
+<div id="response_{{ index }}" class="tab-pane">
+    <h5>Informations</h5>
+    <table>
+        <tbody>
+            <tr>
+                <th>Code</th>
+                <td>{{ response.statusCode }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ response.reasonPhrase }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h5>Headers</h5>
+    <table>
+        <tbody>
+        {% for header,value in response.headers %}
+            <tr>
+                <th>{{ header }}</th>
+                <td>
+                    {{ value|join(', ') }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h5>Content</h5>
+    {% include 'MisdGuzzleBundle:Profiler:body.html.twig' with {'body': response.body} %}
+</div>

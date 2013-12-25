@@ -1,0 +1,35 @@
+<div id="call_{{ index }}" class="request {{ call.request.method|lower }}">
+    <div class="status icon {% if call.error %}error{% else %}success{% endif %}"></div>
+
+    <div class="summary">
+        <h3>
+            <span class="method">{{ call.request.method }}</span>
+            <span class="path">&nbsp{{ call.request.path }}</span>
+        </h3>
+        <div class="code">
+            <abbr title="{{ call.response.reasonPhrase }}">{{ call.response.statusCode }}</abbr>
+        </div>
+    </div>
+
+    <div class="details">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#request_{{ index }}" data-toggle="tab">Request</a>
+            </li>
+            <li>
+                <a href="#response_{{ index }}" data-toggle="tab">Response</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            {% include 'MisdGuzzleBundle:Profiler:request.html.twig' with {'index':index, 'request': call.request, 'time': call.time} %}
+            {% include 'MisdGuzzleBundle:Profiler:response.html.twig' with {'index':index, 'response':call.response} %}
+        </div>
+
+        <div class="progress-striped" style="text-align:center;background-color:#ddd;margin:5px 0 30px 0;padding: 0;font-variant:small-caps;">
+            <div class="bar">
+                <a  style="display:block;text-decoration:none;" href="#call_{{ index }}" title="top">back to top</a>
+            </div>
+        </div>
+    </div>
+</div>
