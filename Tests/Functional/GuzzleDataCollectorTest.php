@@ -14,46 +14,51 @@ namespace Misd\GuzzleBundle\Tests\Functional;
 use Symfony\Component\HttpFoundation\Request as SfRequest;
 use Symfony\Component\HttpFoundation\Response as SfResponse;
 
-use Guzzle\Http\Message\Request as GuzzleRequest;
-use Guzzle\Http\Message\Response as GuzzleResponse;
-
 use Misd\GuzzleBundle\DataCollector\GuzzleDataCollector;
+use Misd\GuzzleBundle\Tests\Stubs\HistoryPluginStub;
 
+/**
+ * Guzzle data collector functional test
+ *
+ * @author Ludovic Fleury <ludo.fleury@gmail.com>
+ */
 class GuzzleDataCollectorTest extends TestCase
 {
     public function testNoDuplicateLogs()
     {
-        $adapter = $this->getMock('Guzzle\Log\ArrayLogAdapter');
-        $adapter->expects($this->any())
-                ->method('getLogs')
-                ->will($this->returnValue(array(
-                    $this->newGuzzleLog(),
-                )));
-
-        $collector = new GuzzleDataCollector($adapter);
+        $historyPlugin = new HistoryPluginStub($this->getStubCalls());
+        $collector = new GuzzleDataCollector($historyPlugin);
 
         $collector->collect(new SfRequest(), new SfResponse(), null);
         $collector->collect(new SfRequest(), new SfResponse(), null);
 
-        $this->assertCount(1, $collector->getRequests());
+        $this->assertCount(1, $collector->getCalls());
     }
-
+    
     public function testEmptyArrayWhenNoRequests()
     {
-        $adapter = $this->getMock('Guzzle\Log\ArrayLogAdapter');
-        $collector = new GuzzleDataCollector($adapter);
+        $historyPlugin = new HistoryPluginStub($this->getStubCalls());
+        $collector = new GuzzleDataCollector($historyPlugin);
 
-        $this->assertEquals(array(), $collector->getRequests());
+        $this->assertEquals(array(), $collector->getCalls());
     }
 
-    private function newGuzzleLog()
+    /**
+     * Mock a history plugin journal with a single entry
+     *
+     * @return array
+     */
+    private function getStubCalls()
     {
-        return array(
-            'message' => '',
-            'extras' => array(
-                'response' => new GuzzleResponse(200),
-                'request' => new GuzzleRequest('GET', '/'),
-            )
-        );
+        $request = $this->getMock('Guzzle\Http\Message\RequestInterface');
+        $response = $this->getMock('Guzzle\Http\Message\Response', array(), array(200));
+
+        $request
+            ->expects($this->any())
+            ->method('getResponse')
+            ->will($this->returnValue($response))
+        ;
+
+        return array($request);
     }
 }
