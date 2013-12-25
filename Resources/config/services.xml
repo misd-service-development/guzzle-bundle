@@ -6,8 +6,12 @@
 
     <parameters>
         <parameter key="guzzle.client.class">Guzzle\Service\Client</parameter>
+        <parameter key="guzzle.service_description.class">Guzzle\Service\Description\ServiceDescription</parameter>
+        <parameter key="misd_guzzle.listener.command.class">Misd\GuzzleBundle\EventListener\CommandListener</parameter>
         <parameter key="misd_guzzle.listener.request_listener.class">Misd\GuzzleBundle\EventListener\RequestListener</parameter>
-        <parameter key="misd_guzzle.data_collector.class">Misd\GuzzleBundle\DataCollector\GuzzleDataCollector</parameter>
+        <parameter key="misd_guzzle.request.visitor.body.class">Misd\GuzzleBundle\Service\Command\LocationVisitor\Request\JMSSerializerBodyVisitor</parameter>
+        <parameter key="misd_guzzle.response.parser.class">Misd\GuzzleBundle\Service\Command\JMSSerializerResponseParser</parameter>
+        <parameter key="misd_guzzle.response.parser.fallback.class">Guzzle\Service\Command\OperationResponseParser</parameter>
         <parameter key="misd_guzzle.log.format" />
     </parameters>
 
@@ -15,18 +19,37 @@
         <service id="guzzle.client" class="%guzzle.client.class%">
             <tag name="guzzle.client"/>
         </service>
+        <service id="guzzle.service_builder" class="%guzzle.service_builder.class%"
+                 factory-class="%guzzle.service_builder.class%" factory-method="factory">
+            <argument type="string" id="guzzle.service_builder.configuration_file">%guzzle.service_builder.configuration_file%</argument>
+        </service>
+        <service id="misd_guzzle.request.visitor.body" class="%misd_guzzle.request.visitor.body.class%">
+            <argument type="service" id="jms_serializer.serializer" on-invalid="ignore"/>
+        </service>
+        <service id="misd_guzzle.response.parser.fallback" class="%misd_guzzle.response.parser.fallback.class%"
+                 factory-class="%misd_guzzle.response.parser.fallback.class%" factory-method="getInstance"/>
+        <service id="misd_guzzle.response.parser" class="%misd_guzzle.response.parser.class%">
+            <argument type="service" id="jms_serializer.serializer" on-invalid="ignore"/>
+            <argument type="service" id="misd_guzzle.response.parser.fallback"/>
+        </service>
         <service id="misd_guzzle.log.array" class="%guzzle.plugin.log.class%" public="false">
             <tag name="misd_guzzle.plugin"/>
             <argument type="service" id="misd_guzzle.log.adapter.array"/>
         </service>
-        <service id="misd_guzzle.listener.request_listener" class="%misd_guzzle.listener.request_listener.class%" public="false">
+        <service id="misd_guzzle.log.adapter.array" class="%guzzle.log.adapter.array.class%" public="false"/>
+        <service id="misd_guzzle.listener.request_listener" class="%misd_guzzle.listener.request_listener.class%">
             <tag name="misd_guzzle.plugin"/>
             <argument type="service" id="debug.stopwatch" on-invalid="null"/>
         </service>
-        <service id="misd_guzzle.log.adapter.array" class="%guzzle.log.adapter.array.class%" public="false"/>
-        <service id="misd_guzzle.data_collector" class="%misd_guzzle.data_collector.class%" public="false">
-            <tag name="data_collector" template="MisdGuzzleBundle:Collector:guzzle" id="guzzle"/>
-            <argument type="service" id="misd_guzzle.log.adapter.array"/>
+        <service id="misd_guzzle.listener.command_listener" class="%misd_guzzle.listener.command.class%">
+            <tag name="misd_guzzle.plugin"/>
+            <argument type="service" id="jms_serializer" on-invalid="null"/>
+            <argument type="service" id="misd_guzzle.request.visitor.body"/>
+            <argument type="service" id="misd_guzzle.response.parser"/>
+        </service>
+        <service id="misd_guzzle.param_converter" class="%misd_guzzle.param_converter.class%">
+            <tag name="request.param_converter" converter="guzzle" priority="-100"/>
         </service>
     </services>
+
 </container>
