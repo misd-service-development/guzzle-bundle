@@ -52,9 +52,6 @@
             <argument type="service" id="misd_guzzle.request.visitor.body"/>
             <argument type="service" id="misd_guzzle.response.parser"/>
         </service>
-        <service id="misd_guzzle.param_converter" class="%misd_guzzle.param_converter.class%">
-            <tag name="request.param_converter" converter="guzzle" priority="-100"/>
-        </service>
     </services>
 
 </container>
