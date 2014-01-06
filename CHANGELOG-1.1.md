@@ -1,6 +1,13 @@
 Changelog for 1.1.*
 ===================
 
+1.1.3
+-----
+
+6 January 2014.
+
+* Fixed bug that prevented installation when the SensioFrameworkExtraBundle wasn't installed.
+
 1.1.2
 -----
 
