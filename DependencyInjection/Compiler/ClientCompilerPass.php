@@ -33,7 +33,7 @@ class ClientCompilerPass implements CompilerPassInterface
             foreach ($plugins as $plugin => $pluginAttributes) {
                 $container->getDefinition($id)->addMethodCall('addSubscriber', array((new Reference($plugin))));
             }
-            if ('guzzle.client' !== $id) {
+            if ('guzzle.client' !== $id && $container->hasDefinition('misd_guzzle.param_converter')) {
                 $container->getDefinition('misd_guzzle.param_converter')
                     ->addMethodCall('registerClient', array($id, new Reference($id)))
                 ;
