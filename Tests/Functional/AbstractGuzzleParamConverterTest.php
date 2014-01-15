@@ -65,13 +65,45 @@ abstract class AbstractGuzzleParamConverterTest extends TestCase
     /**
      * @expectedException \LogicException
      */
-    public function testCommandWithoutClient()
+    public function testCommandWithIndeterminableClient()
     {
         $config = $this->createConfiguration(
             'Misd\GuzzleBundle\Tests\Fixtures\Person',
             array('command' => 'UnknownCommand')
         );
         $this->converter->supports($config);
+    }
+
+    public function testCommandWithSingleClient()
+    {
+        $class = get_class($this->converter);
+        $converter = new $class;
+        $converter->registerClient('with.description', self::getClient('JMSSerializerBundle'));
+
+        $config = $this->createConfiguration(
+            'Misd\GuzzleBundle\Tests\Fixtures\Person',
+            array('command' => 'GetPersonClass')
+        );
+
+        $this->assertTrue($converter->supports($config));
+    }
+
+    /**
+     * @expectedException \LogicException
+     * @expectedExceptionMessage Unknown command 'UnknownCommand' for client 'with.description'
+     */
+    public function testCommandWithSingleClientWithUnknownCommand()
+    {
+        $class = get_class($this->converter);
+        $converter = new $class;
+        $converter->registerClient('with.description', self::getClient('JMSSerializerBundle'));
+
+        $config = $this->createConfiguration(
+            'Misd\GuzzleBundle\Tests\Fixtures\Person',
+            array('command' => 'UnknownCommand')
+        );
+
+        $converter->supports($config);
     }
 
     /**

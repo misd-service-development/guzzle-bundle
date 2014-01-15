@@ -36,11 +36,19 @@ For example, to force use of the `example.client`'s `GetPost` command:
      */
     public function showAction(Post $post)
 
-Alternatively, if you just set the client it will search for a command that matches:
+If you just set the client it will search for a command that matches:
 
     /**
      * @Route("blog/{id}")
      * @ParamConverter("post", options={"client"="example.client"})
+     */
+    public function showAction(Post $post)
+    
+If you have a single client, you may omit the `client` option:
+
+    /**
+     * @Route("blog/{id}")
+     * @ParamConverter("post", options={"command"="GetPost"})
      */
     public function showAction(Post $post)
 
