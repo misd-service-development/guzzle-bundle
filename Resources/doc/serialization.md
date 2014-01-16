@@ -103,6 +103,31 @@ Executing the `CreatePerson` command will now send an instance of `Vendor\MyBund
     $command = $client->getCommand('CreatePerson', array('person' => $person));
     $client->execute($command);
 
+If you wish to customize the serialization context of the serializer, you can do so by usage of the `data` property of the Parameter. Groups, version, serializing nulls and max depth checks are configurable for serialization:
+
+For example:
+
+    "CreatePerson":{
+        "httpMethod":"POST",
+        "uri":"person",
+        "summary":"Create a person",
+        "parameters":{
+            "person":{
+                "location":"body",
+                "type":"object",
+                "instanceOf":"Vendor\\MyBundle\\Entity\\Person",
+                "sentAs":"json",
+                "required":"true",
+                "data": {
+                    "jms_serializer.groups": "person-details",
+                    "jms_serializer.version": 1,
+                    "jms_serializer.serialize_nulls": true,
+                    "jms_serializer.max_depth_checks": true,
+                }
+            }
+        }
+    }
+
 Concrete commands
 -----------------
 
