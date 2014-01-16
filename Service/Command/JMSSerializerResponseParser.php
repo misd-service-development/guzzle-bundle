@@ -12,9 +12,10 @@
 namespace Misd\GuzzleBundle\Service\Command;
 
 use Guzzle\Http\Message\Response;
+use Guzzle\Service\Command\CommandInterface;
 use Guzzle\Service\Command\ResponseParserInterface;
 use Guzzle\Service\Description\OperationInterface;
-use Guzzle\Service\Command\CommandInterface;
+use JMS\Serializer\DeserializationContext;
 use JMS\Serializer\SerializerInterface;
 
 /**
@@ -104,10 +105,24 @@ class JMSSerializerResponseParser implements ResponseParserInterface
             if (null !== $serializerContentType &&
                 OperationInterface::TYPE_CLASS === $command->getOperation()->getResponseType()
             ) {
+                $context = DeserializationContext::create();
+                $operation = $command->getOperation();
+
+                if (null !== $groups = $operation->getData('jms_serializer.groups')) {
+                    $context->setGroups($groups);
+                }
+                if (null !== $version = $operation->getData('jms_serializer.version')) {
+                    $context->setVersion($version);
+                }
+                if (true === $operation->getData('jms_serializer.max_depth_checks')) {
+                    $context->enableMaxDepthChecks();
+                }
+
                 return $this->serializer->deserialize(
                     $response->getBody(),
                     $command->getOperation()->getResponseClass(),
-                    $serializerContentType
+                    $serializerContentType,
+                    $context
                 );
             }
         }

@@ -32,6 +32,30 @@ Executing the `GetPerson` command will now return an instance of `Vendor\MyBundl
     $command = $client->getCommand('GetPerson', array('id' => $id));
     $person = $client->execute($command);
 
+If you wish to customize the deserialization context of the serializer, you can do so by usage of the `data` property of the Operation. Groups, version, and max depth checks are configurable for deserialization:
+
+For example:
+
+    "GetPerson":{
+        "httpMethod":"GET",
+        "uri":"person/{id}",
+        "summary":"Gets a person",
+        "responseClass":"Vendor\\MyBundle\\Entity\\Person",
+        "data": {
+            "jms_serializer.groups": "person-details",
+            "jms_serializer.version": 1,
+            "jms_serializer.max_depth_checks": true,
+        }
+        "parameters":{
+            "id":{
+                "location":"uri",
+                "type":"integer",
+                "description":"Person to retrieve by ID",
+                "required":"true"
+            }
+        }
+    }
+
 ### Arrays
 
 The `responseClass` value can actually be any of the JMS Serializer's `@Type` annotation value forms which contain a classname.
