@@ -57,6 +57,7 @@ class RequestListener implements EventSubscriberInterface
 
     /**
      * Starts the stopwatch.
+     *
      * @param array $context
      */
     public function onRequestBeforeSend($context)
@@ -73,6 +74,7 @@ class RequestListener implements EventSubscriberInterface
 
     /**
      * Stops the stopwatch.
+     *
      * @param array $context
      */
     public function onRequestComplete($context)
@@ -89,6 +91,7 @@ class RequestListener implements EventSubscriberInterface
 
     /**
      * @param array $context
+     *
      * @return string
      */
     private function getEventName($context)
