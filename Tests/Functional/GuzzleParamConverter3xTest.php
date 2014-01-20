@@ -12,7 +12,6 @@
 namespace Misd\GuzzleBundle\Tests\Functional;
 
 use Misd\GuzzleBundle\Request\ParamConverter\GuzzleParamConverter3x;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface;
 
 class GuzzleParamConverter3xTest extends AbstractGuzzleParamConverterTest
 {
