@@ -36,7 +36,7 @@ class AbstractTestCase extends PHPUnit_Framework_TestCase
         $container = new ContainerBuilder();
         $container->setParameter('kernel.debug', true);
         $container->setParameter('kernel.cache_dir', sys_get_temp_dir() . '/guzzle');
-        $container->setParameter('kernel.bundles', array());
+        $container->setParameter('kernel.bundles', array('WebProfilerBundle' => true));
         $container->setParameter('kernel.root_dir', __DIR__ . '/Fixtures');
         $container->set('service_container', $container);
         $container->set('monolog.logger', $this->getMock('Symfony\\Bridge\\Monolog\\Logger', array(), array('app')));

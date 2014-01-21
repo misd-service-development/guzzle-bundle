@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="misd_guzzle.data_collector.class">Misd\GuzzleBundle\DataCollector\GuzzleDataCollector</parameter>
+        <parameter key="misd_guzzle.profiler.limit">1000</parameter>
+    </parameters>
+    <services>
+        <service id="misd_guzzle.profiler" class="%guzzle.plugin.history.class%" public="true">
+            <tag name="misd_guzzle.plugin"/>
+            <call method="setLimit">
+                <argument>%misd_guzzle.profiler.limit%</argument>
+            </call>
+        </service>
+
+        <service id="misd_guzzle.data_collector" class="%misd_guzzle.data_collector.class%">
+            <tag name="data_collector" template="MisdGuzzleBundle:Collector:guzzle" id="guzzle"/>
+            <argument type="service" id="misd_guzzle.profiler"/>
+        </service>
+    </services>
+</container>
