@@ -15,6 +15,7 @@ use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Service\Command\CommandInterface;
 use Guzzle\Service\Command\LocationVisitor\Request\BodyVisitor;
 use Guzzle\Service\Description\Parameter;
+use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 
 /**
@@ -64,7 +65,22 @@ class JMSSerializerBodyVisitor extends BodyVisitor
                     $contentType = 'xml';
                     break;
             }
-            $value = $this->serializer->serialize($filteredValue, $contentType);
+            $context = SerializationContext::create();
+
+            if (null !== $groups = $param->getData('jms_serializer.groups')) {
+                $context->setGroups($groups);
+            }
+            if (null !== $version = $param->getData('jms_serializer.version')) {
+                $context->setVersion($version);
+            }
+            if (null !== $nulls = $param->getData('jms_serializer.serialize_nulls')) {
+                $context->setSerializeNull($nulls);
+            }
+            if (true === $param->getData('jms_serializer.max_depth_checks')) {
+                $context->enableMaxDepthChecks();
+            }
+
+            $value = $this->serializer->serialize($filteredValue, $contentType, $context);
         }
 
         parent::visit($command, $request, $param, $value);
