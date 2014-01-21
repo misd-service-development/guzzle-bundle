@@ -132,6 +132,10 @@ abstract class AbstractGuzzleParamConverter implements ParamConverterInterface
                 throw new LogicException(sprintf('Unknown client \'%s\'', $options['client']));
             }
             $client = $this->clients[$options['client']];
+        } elseif (1 === count($this->clients)) {
+            $ids = array_keys($this->clients);
+            $options['client'] = reset($ids);
+            $client = reset($this->clients);
         } else {
             $client = null;
         }
