@@ -35,7 +35,10 @@ class MisdGuzzleExtension extends Extension
         $loader->load('services.xml');
         $loader->load('plugin.xml');
         $loader->load('log.xml');
-        $loader->load('cache.xml');
+
+        if ($config['serializer']) {
+            $loader->load('serializer.xml');
+        }
 
         if (interface_exists('Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface')) {
             // choose a ParamConverterInterface implementation that is compatible
@@ -61,15 +64,22 @@ class MisdGuzzleExtension extends Extension
             $loader->load('param_converter.xml');
         }
 
-        $container->setParameter(
-            'guzzle.service_builder.class',
-            $config['service_builder']['class']
-        );
-        $container->setParameter(
-            'guzzle.service_builder.configuration_file',
-            $config['service_builder']['configuration_file']
-        );
-        $container->setParameter('misd_guzzle.cache.filesystem.path', $config['filesystem_cache']['path']);
+        if ($config['service_builder']['enabled']) {
+            $loader->load('service_builder.xml');
+            $container->setParameter(
+                'guzzle.service_builder.class',
+                $config['service_builder']['class']
+            );
+            $container->setParameter(
+                'guzzle.service_builder.configuration_file',
+                $config['service_builder']['configuration_file']
+            );
+        }
+
+        if ($config['filesystem_cache']['enabled']) {
+            $loader->load('cache.xml');
+            $container->setParameter('misd_guzzle.cache.filesystem.path', $config['filesystem_cache']['path']);
+        }
 
         $logFormat = $config['log']['format'];
         if (in_array($logFormat, array('default', 'debug', 'short'))) {
