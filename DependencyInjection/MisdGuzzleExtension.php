@@ -11,6 +11,7 @@
 
 namespace Misd\GuzzleBundle\DependencyInjection;
 
+use Guzzle\Common\Version;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder,
     Symfony\Component\DependencyInjection\Loader;
@@ -77,5 +78,12 @@ class MisdGuzzleExtension extends Extension
         }
         $container->setParameter('misd_guzzle.log.format', $logFormat);
         $container->setParameter('misd_guzzle.log.enabled', $config['log']['enabled']);
+
+        if (
+            version_compare(Version::VERSION, '3.6', '>=')
+            && $container->hasParameter('kernel.debug')
+        ) {
+            Version::$emitWarnings = $container->getParameter('kernel.debug');
+        }
     }
 }
