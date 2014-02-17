@@ -32,6 +32,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('service_builder')
+                    ->canBeDisabled()
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('class')->defaultValue('Guzzle\Service\Builder\ServiceBuilder')->end()
@@ -39,6 +40,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->arrayNode('filesystem_cache')
+                    ->canBeDisabled()
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('path')->defaultValue('%kernel.cache_dir%/guzzle/')->end()
@@ -51,6 +53,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('format')->defaultValue('default')->end()
                     ->end()
                 ->end()
+                ->booleanNode('serializer')->defaultTrue()->end()
             ->end()
         ;
 

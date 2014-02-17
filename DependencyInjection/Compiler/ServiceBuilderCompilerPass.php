@@ -27,6 +27,10 @@ class ServiceBuilderCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+        if (!$container->hasDefinition('guzzle.service_builder')) {
+            return;
+        }
+
         foreach ($container->findTaggedServiceIds('misd_guzzle.plugin') as $plugin => $attributes) {
             $container->getDefinition('guzzle.service_builder')
                 ->addMethodCall('addGlobalPlugin', array(new Reference($plugin)));

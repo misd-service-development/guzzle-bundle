@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="misd_guzzle.listener.command.class">Misd\GuzzleBundle\EventListener\CommandListener</parameter>
+        <parameter key="misd_guzzle.request.visitor.body.class">Misd\GuzzleBundle\Service\Command\LocationVisitor\Request\JMSSerializerBodyVisitor</parameter>
+        <parameter key="misd_guzzle.response.parser.class">Misd\GuzzleBundle\Service\Command\JMSSerializerResponseParser</parameter>
+        <parameter key="misd_guzzle.response.parser.fallback.class">Guzzle\Service\Command\OperationResponseParser</parameter>
+    </parameters>
+
+    <services>
+        <service id="misd_guzzle.request.visitor.body" class="%misd_guzzle.request.visitor.body.class%">
+            <argument type="service" id="jms_serializer.serializer" on-invalid="ignore"/>
+        </service>
+        <service id="misd_guzzle.response.parser.fallback" class="%misd_guzzle.response.parser.fallback.class%"
+                 factory-class="%misd_guzzle.response.parser.fallback.class%" factory-method="getInstance"/>
+        <service id="misd_guzzle.response.parser" class="%misd_guzzle.response.parser.class%">
+            <argument type="service" id="jms_serializer.serializer" on-invalid="ignore"/>
+            <argument type="service" id="misd_guzzle.response.parser.fallback"/>
+        </service>
+        <service id="misd_guzzle.listener.command_listener" class="%misd_guzzle.listener.command.class%">
+            <tag name="misd_guzzle.plugin"/>
+            <argument type="service" id="jms_serializer" on-invalid="null"/>
+            <argument type="service" id="misd_guzzle.request.visitor.body"/>
+            <argument type="service" id="misd_guzzle.response.parser"/>
+        </service>
+    </services>
+</container>
