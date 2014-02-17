@@ -1,6 +1,18 @@
 Changelog for 1.1.*
 ===================
 
+1.1.4
+-----
+
+17 February 2014.
+
+* Allow configuration of JMS Serializer options through the service definition's `data` property.
+* Remove the need to define the client when setting the command for the ParamConverter if there is only one.
+* Embedded profiler images and removed the public folder.
+* Trigger Guzzle deprecation warnings in Symfony debug mode.
+* Tidied up the configuration, allowing parts to be disabled and marking internal services as private.
+* Stop the profiler timeline from erroneously grouping requests.
+
 1.1.3
 -----
 
