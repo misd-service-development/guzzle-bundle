@@ -18,7 +18,10 @@ Next set the parameter for the service description file location:
 
     // MyBundle/DependencyInjection/MyBundleExtension.php
 
-    $container->setParameter('path.to.my.service_description.file', __DIR__ . '/../Resources/config/client.json');
+    $container->setParameter(
+        'path.to.my.service_description.file',
+        json_decode(file_get_contents(__DIR__ . '/../Resources/config/client.json'), true)
+    );
 
 Then add the service description to your client through the `setDescription()` method:
 
