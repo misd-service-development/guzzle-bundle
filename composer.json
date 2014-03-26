@@ -38,11 +38,10 @@
         "jms/serializer-bundle": "~0.11"
     },
     "autoload": {
-        "psr-0": {
-            "Misd\\GuzzleBundle": ""
+        "psr-4": {
+            "Misd\\GuzzleBundle\\": ""
         }
     },
-    "target-dir": "Misd/GuzzleBundle",
     "extra": {
         "branch-alias": {
             "dev-master": "1.1.x-dev"
