@@ -1,32 +1,37 @@
-<div id="response_{{ index }}" class="tab-pane">
-    <h5>Informations</h5>
-    <table>
-        <tbody>
-            <tr>
-                <th>Code</th>
-                <td>{{ response.statusCode }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ response.reasonPhrase }}</td>
-            </tr>
-        </tbody>
-    </table>
+<h3>Response details</h3>
+<table>
+    <tbody>
+    <tr>
+        <th>Code</th>
+        <td>{{ response.statusCode }}</td>
+    </tr>
+    <tr>
+        <th>Status</th>
+        <td>{{ response.reasonPhrase }}</td>
+    </tr>
 
-    <h5>Headers</h5>
-    <table>
-        <tbody>
-        {% for header,value in response.headers %}
+    {% if response.body is not empty %}
+        <tr>
+            <th>Body</th>
+            <td>{{ response.body|length }} bytes
+                <a href="data:text/plain;,{{ response.body|url_encode(true) }}" target="_blank">raw</a>
+                <a href="data:text/plain;,{{ response.body|url_encode(true) }}" target="_blank">parsed</a>
+                <a href="data:text/html;,{{ response.body|url_encode(true) }}" target="_blank">html</a>
+            </td>
+        </tr>
+    {% endif %}
+
+    {% if response.headers is not empty %}
+        <tr>
+            <th colspan="2">Headers</th>
+        </tr>
+        {% for header,value in request.headers %}
             <tr>
                 <th>{{ header }}</th>
-                <td>
-                    {{ value|join(', ') }}
-                </td>
+                <td>{{ value|join('<strong>, </strong>') }}</td>
             </tr>
         {% endfor %}
-        </tbody>
-    </table>
+    {% endif %}
 
-    <h5>Content</h5>
-    {% include 'MisdGuzzleBundle:Profiler:body.html.twig' with {'body': response.body} %}
-</div>
+    </tbody>
+</table>

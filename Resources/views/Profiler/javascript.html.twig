@@ -1,4 +1,18 @@
-<script src="{{ asset('bundles/misdguzzle/vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('bundles/misdguzzle/vendor/bootstrap/js/bootstrap-tab.min.js') }}"></script>
-<script src="{{ asset('bundles/misdguzzle/vendor/google-code-prettify/prettify.js') }}"></script>
-<script>!function() { $('div.summary').click(function() { $(this).next('div.details').slideToggle(100);});window.prettyPrint && prettyPrint()}()</script>
+<script>
+    function guzzleToggle(selectedType, id){
+        var types = ['time', 'request', 'response'];
+        for (var i = 0; i < types.length; i++) {
+            var type =  types[i];
+            var div = document.getElementById('guzzle-' + type + id);
+            if (selectedType == type) {
+                if(div.style.display == 'block'){
+                    div.style.display = 'none';
+                } else {
+                    div.style.display = 'block';
+                }
+            } else {
+                div.style.display = 'none';
+            }
+        }
+    }
+</script>
