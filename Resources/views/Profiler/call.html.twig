@@ -4,9 +4,9 @@
         <strong>Status:</strong> {{ call.response.statusCode }} {{ call.response.reasonPhrase }}<br/>
         <strong>Method:</strong> {{ call.request.method }}<br/>
         <strong>URL:</strong> <a href="{{ call.request.scheme }}://{{ call.request.host }}{{ call.request.path }}" target="_blank">{{ call.request.scheme }}://{{ call.request.host }}{{ call.request.path }}</a><br/>
-        <strong>Total time:</strong> {{ '%0.2f ms'|format(call.time.total * 1000) }} <a href="#request{{ index }}" onclick="guzzleToggle('time', {{ index }});">details</a><br/>
-        <strong>Request:</strong> {{ call.request.body|length }} bytes <a href="#request{{ index }}" onclick="guzzleToggle('request', {{ index }});">details</a><br/>
-        <strong>Response:</strong> {{ call.response.body|length }} bytes <a href="#request{{ index }}" onclick="guzzleToggle('response', {{ index }});">details</a><br/>
+        <strong>Total time:</strong> {{ '%0.2f ms'|format(call.time.total * 1000) }} <a href="#request{{ index }}" onclick="guzzleToggle('time', {{ index }}); return false;">details</a><br/>
+        <strong>Request:</strong> {{ call.request.body|length }} bytes <a href="#request{{ index }}" onclick="guzzleToggle('request', {{ index }}); return false;">details</a><br/>
+        <strong>Response:</strong> {{ call.response.body|length }} bytes <a href="#request{{ index }}" onclick="guzzleToggle('response', {{ index }}); return false;">details</a><br/>
     </div>
     <div id="guzzle-time{{ index }}" class="guzzle-details">
         {% include 'MisdGuzzleBundle:Profiler:time.html.twig' with {'time': call.time} %}
