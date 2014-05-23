@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Misd\GuzzleBundle\Tests\Service\Command;
+namespace Misd\GuzzleBundle\Tests\Service\Command\LocationVisitor\Request;
 
 use JMS\Serializer\SerializationContext;
 use Misd\GuzzleBundle\Service\Command\LocationVisitor\Request\JMSSerializerBodyVisitor;
