@@ -13,10 +13,7 @@ namespace Misd\GuzzleBundle\Tests\Functional;
 
 use Guzzle\Common\Version;
 use Guzzle\Http\Message\Response;
-use Guzzle\Plugin\Mock\MockPlugin;
 use Guzzle\Service\Client;
-use Guzzle\Service\Description\ServiceDescription;
-use InvalidArgumentException;
 
 class JMSSerializerResponseTest extends TestCase
 {
@@ -195,38 +192,6 @@ class JMSSerializerResponseTest extends TestCase
         $this->assertEquals(2, $people[1]->id);
         $this->assertEquals('Baz', $people[1]->firstName);
         $this->assertEquals('Qux', $people[1]->familyName);
-    }
-
-    /**
-     * @var Client[]
-     */
-    protected static $clients = array();
-    /**
-     * @var MockPlugin
-     */
-    protected static $mock;
-
-    public static function setUpBeforeClass()
-    {
-        parent::setUpBeforeClass();
-
-        self::$mock = new MockPlugin();
-
-        foreach (self::getTestCases() as $testCase) {
-            $client = self::getContainer($testCase)->get('guzzle.client');
-            $client->setDescription(ServiceDescription::factory(__DIR__ . '/../Fixtures/config/client.json'));
-            $client->addSubscriber(self::$mock);
-            self::$clients[$testCase] = $client;
-        }
-    }
-
-    protected static function getClient($testCase)
-    {
-        if (false === isset(self::$clients[$testCase])) {
-            throw new InvalidArgumentException(sprintf('Unknown testCase %s', $testCase));
-        }
-
-        return self::$clients[$testCase];
     }
 
     protected function xmlResponse()
