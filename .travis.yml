@@ -18,10 +18,12 @@ env:
   - SYMFONY_VERSION="2.3.x"  GUZZLE_VERSION="~3.0" SENSIO_FRAMEWORK_EXTRA_VERSION="~2.2"
   - SYMFONY_VERSION="~2.4"  GUZZLE_VERSION="~3.0" SENSIO_FRAMEWORK_EXTRA_VERSION="~3.0"
 
-before_script:
-  - composer require symfony/framework-bundle:${SYMFONY_VERSION} --no-update
-  - composer require guzzle/guzzle:${GUZZLE_VERSION} --no-update
-  - composer require sensio/framework-extra-bundle:${SENSIO_FRAMEWORK_EXTRA_VERSION} --dev --no-update
-  - composer install --dev --prefer-source
+before_install:
+  - composer require symfony/framework-bundle:${SYMFONY_VERSION} --no-interaction --no-update
+  - composer require guzzle/guzzle:${GUZZLE_VERSION} --no-interaction --no-update
+  - composer require sensio/framework-extra-bundle:${SENSIO_FRAMEWORK_EXTRA_VERSION} --no-interaction --dev --no-update
+
+install:
+  - composer install --no-interaction --dev --prefer-source
 
 script: ./vendor/bin/phpunit
