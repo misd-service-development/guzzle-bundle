@@ -59,7 +59,7 @@ class RequestListener implements EventSubscriberInterface
 
     /**
      * Starts the stopwatch.
-     * 
+     *
      * @param Event $e
      */
     public function onRequestBeforeSend(Event $e)
