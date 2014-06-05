@@ -45,6 +45,7 @@ class MisdGuzzleExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testWithoutDebugParameter()
     {
+        $this->container->setParameter('kernel.bundles', []);
         $this->extension->load(array(), $this->container);
 
         $this->assertFalse(Version::$emitWarnings);
@@ -52,6 +53,7 @@ class MisdGuzzleExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testDebugDisabled()
     {
+        $this->container->setParameter('kernel.bundles', []);
         $this->container->setParameter('kernel.debug', false);
         $this->extension->load(array(), $this->container);
 
@@ -60,6 +62,7 @@ class MisdGuzzleExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testDebugEnabled()
     {
+        $this->container->setParameter('kernel.bundles', []);
         $this->container->setParameter('kernel.debug', true);
         $this->extension->load(array(), $this->container);
 
