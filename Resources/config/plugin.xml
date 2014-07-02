@@ -10,6 +10,7 @@
         <parameter key="guzzle.plugin.cache.class">Guzzle\Plugin\Cache\CachePlugin</parameter>
         <parameter key="guzzle.plugin.cookie.class">Guzzle\Plugin\Cookie\CookiePlugin</parameter>
         <parameter key="guzzle.plugin.curl_auth.class">Guzzle\Plugin\CurlAuth\CurlAuthPlugin</parameter>
+        <parameter key="guzzle.plugin.error_response.class">Guzzle\Plugin\ErrorResponse\ErrorResponsePlugin</parameter>
         <parameter key="guzzle.plugin.history.class">Guzzle\Plugin\History\HistoryPlugin</parameter>
         <parameter key="guzzle.plugin.log.class">Guzzle\Plugin\Log\LogPlugin</parameter>
         <parameter key="guzzle.plugin.md5_validator.class">Guzzle\Plugin\Md5\Md5ValidatorPlugin</parameter>
