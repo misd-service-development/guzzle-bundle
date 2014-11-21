@@ -38,6 +38,14 @@ class GuzzleDataCollectorTest extends TestCase
         $this->assertCount(1, $collector->getRequests());
     }
 
+    public function testEmptyArrayWhenNoRequests()
+    {
+        $adapter = $this->getMock('Guzzle\Log\ArrayLogAdapter');
+        $collector = new GuzzleDataCollector($adapter);
+
+        $this->assertEquals([], $collector->getRequests());
+    }
+
     private function newGuzzleLog()
     {
         return array(

@@ -58,7 +58,11 @@ class GuzzleDataCollector extends DataCollector
 
     public function getRequests()
     {
-        return $this->data['requests'];
+        if (array_key_exists('requests', $this->data)) {
+            return $this->data['requests'];
+        } else {
+            return [];
+        }
     }
 
     public function getName()
