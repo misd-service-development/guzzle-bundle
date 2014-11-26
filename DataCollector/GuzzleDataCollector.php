@@ -61,7 +61,7 @@ class GuzzleDataCollector extends DataCollector
         if (array_key_exists('requests', $this->data)) {
             return $this->data['requests'];
         } else {
-            return [];
+            return array();
         }
     }
 
