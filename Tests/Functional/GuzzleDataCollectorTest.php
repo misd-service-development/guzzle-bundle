@@ -43,7 +43,7 @@ class GuzzleDataCollectorTest extends TestCase
         $adapter = $this->getMock('Guzzle\Log\ArrayLogAdapter');
         $collector = new GuzzleDataCollector($adapter);
 
-        $this->assertEquals([], $collector->getRequests());
+        $this->assertEquals(array(), $collector->getRequests());
     }
 
     private function newGuzzleLog()
