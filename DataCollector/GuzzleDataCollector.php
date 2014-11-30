@@ -24,6 +24,7 @@ class GuzzleDataCollector extends DataCollector
     public function __construct(ArrayLogAdapter $logAdapter)
     {
         $this->logAdapter = $logAdapter;
+        $this->data['requests'] = array();
     }
 
     public function collect(Request $request, Response $response, \Exception $exception = null)
