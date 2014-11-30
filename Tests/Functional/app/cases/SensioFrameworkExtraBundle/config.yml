@@ -1,0 +1,15 @@
+imports:
+    - { resource: ./../../config/default.yml }
+
+parameters:
+    http_client: Guzzle\Http\Client
+
+services:
+    http_client:
+        class: Guzzle\Http\Client
+        tags:
+            - { name: guzzle.client }
+    parameter_http_client:
+        class: %http_client%
+        tags:
+            - { name: guzzle.client }
