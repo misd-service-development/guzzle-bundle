@@ -3,7 +3,7 @@ GuzzleBundle
 
 [![Build Status](https://travis-ci.org/misd-service-development/guzzle-bundle.png?branch=master)](http://travis-ci.org/misd-service-development/guzzle-bundle)
 
-This bundle integrates [Guzzle](http://guzzlephp.org/) into your Symfony2 application, which takes the pain out of sending HTTP requests and the redundancy out of creating web service clients.
+This bundle integrates [Guzzle 3](http://guzzle3.readthedocs.org/) into your Symfony2 application, which takes the pain out of sending HTTP requests and the redundancy out of creating web service clients.
 
 It can also integrate with the [JMSSerializerBundle](http://jmsyst.com/bundles/JMSSerializerBundle) for easy object (de)serialization, and provides a param converter for use with the [SensioFrameworkExtraBundle](http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/).
 
