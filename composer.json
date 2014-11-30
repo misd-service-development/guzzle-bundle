@@ -30,7 +30,7 @@
     },
     "require-dev": {
         "doctrine/cache": "~1.0",
-        "phpunit/phpunit": "~3.7",
+        "phpunit/phpunit": "~4.3",
         "sensio/framework-extra-bundle": "~2.2",
         "symfony/yaml": "~2.2",
         "symfony/monolog-bundle": "~2.2",
