@@ -1,6 +1,15 @@
 Changelog for 1.1.*
 ===================
 
+1.1.5
+-----
+
+1 December 2014.
+
+* Fix compatibility with the Symfony 2.6+ profiler when not making any requests.
+* Allow non-service clients to be tagged when using the param converter.
+* Add error response plugin class name parameter.
+
 1.1.4
 -----
 
