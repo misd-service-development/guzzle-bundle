@@ -23,7 +23,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
 {
     protected static function getTestCases()
     {
-        return array('Basic', 'JMSSerializerBundle');
+        return array('Basic', 'JMSSerializerBundle', 'SensioFrameworkExtraBundle');
     }
 
     public static function setUpBeforeClass()

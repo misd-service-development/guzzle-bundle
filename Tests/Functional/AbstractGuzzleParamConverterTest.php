@@ -203,6 +203,12 @@ abstract class AbstractGuzzleParamConverterTest extends TestCase
         $this->converter->apply($request, $config);
     }
 
+    public function testIgnoresNonServiceClients() {
+        $paramConverter = self::getContainer('SensioFrameworkExtraBundle')->get('misd_guzzle.param_converter');
+
+        $this->assertAttributeEmpty('clients', $paramConverter);
+    }
+
     /**
      * @param null   $class
      * @param array  $options
