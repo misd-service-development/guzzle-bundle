@@ -105,24 +105,36 @@ class JMSSerializerResponseParser implements ResponseParserInterface
             if (null !== $serializerContentType &&
                 OperationInterface::TYPE_CLASS === $command->getOperation()->getResponseType()
             ) {
-                $context = DeserializationContext::create();
-                $operation = $command->getOperation();
+                if (true === class_exists('JMS\Serializer\DeserializationContext')) {
+                    $context = DeserializationContext::create();
+                    $operation = $command->getOperation();
 
-                if (null !== $groups = $operation->getData('jms_serializer.groups')) {
-                    $context->setGroups($groups);
-                }
-                if (null !== $version = $operation->getData('jms_serializer.version')) {
-                    $context->setVersion($version);
-                }
-                if (true === $operation->getData('jms_serializer.max_depth_checks')) {
-                    $context->enableMaxDepthChecks();
+                    if (null !== $groups = $operation->getData('jms_serializer.groups')) {
+                        $context->setGroups($groups);
+                    }
+                    if (null !== $version = $operation->getData('jms_serializer.version')) {
+                        $context->setVersion($version);
+                    }
+                    if (
+                        true === $operation->getData('jms_serializer.max_depth_checks')
+                        &&
+                        true === method_exists('JMS\Serializer\DeserializationContext', 'enableMaxDepthChecks')
+                    ) {
+                        $context->enableMaxDepthChecks();
+                    }
+
+                    return $this->serializer->deserialize(
+                        $response->getBody(),
+                        $command->getOperation()->getResponseClass(),
+                        $serializerContentType,
+                        $context
+                    );
                 }
 
                 return $this->serializer->deserialize(
                     $response->getBody(),
                     $command->getOperation()->getResponseClass(),
-                    $serializerContentType,
-                    $context
+                    $serializerContentType
                 );
             }
         }

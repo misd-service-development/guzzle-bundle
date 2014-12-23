@@ -1,7 +1,6 @@
 language: php
 
 php:
-  - 5.3.3
   - 5.3
   - 5.4
   - 5.5
@@ -11,18 +10,14 @@ php:
 matrix:
   allow_failures:
     - php: hhvm
-
-env:
-  - SYMFONY_VERSION="2.2.0" GUZZLE_VERSION="3.0.0" SENSIO_FRAMEWORK_EXTRA_VERSION="~2.2"
-  - SYMFONY_VERSION="2.3.x"  GUZZLE_VERSION="~3.0" SENSIO_FRAMEWORK_EXTRA_VERSION="~2.2"
-  - SYMFONY_VERSION="~2.4"  GUZZLE_VERSION="~3.0" SENSIO_FRAMEWORK_EXTRA_VERSION="~3.0"
+  include:
+    - php: 5.3.3
+      env: dependencies=lowest
 
 before_install:
-  - composer require symfony/framework-bundle:${SYMFONY_VERSION} --no-interaction --no-update
-  - composer require guzzle/guzzle:${GUZZLE_VERSION} --no-interaction --no-update
-  - composer require sensio/framework-extra-bundle:${SENSIO_FRAMEWORK_EXTRA_VERSION} --no-interaction --dev --no-update
+  - composer self-update
 
 install:
-  - composer install --no-interaction --dev --prefer-source
+  - if [ "$dependencies" = "lowest" ]; then composer update --dev --prefer-lowest --prefer-stable --prefer-source --no-interaction; else composer install --dev --prefer-source --no-interaction; fi;
 
 script: ./vendor/bin/phpunit

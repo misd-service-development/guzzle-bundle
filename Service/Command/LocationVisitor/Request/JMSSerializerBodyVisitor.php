@@ -65,22 +65,31 @@ class JMSSerializerBodyVisitor extends BodyVisitor
                     $contentType = 'xml';
                     break;
             }
-            $context = SerializationContext::create();
 
-            if (null !== $groups = $param->getData('jms_serializer.groups')) {
-                $context->setGroups($groups);
-            }
-            if (null !== $version = $param->getData('jms_serializer.version')) {
-                $context->setVersion($version);
-            }
-            if (null !== $nulls = $param->getData('jms_serializer.serialize_nulls')) {
-                $context->setSerializeNull($nulls);
-            }
-            if (true === $param->getData('jms_serializer.max_depth_checks')) {
-                $context->enableMaxDepthChecks();
-            }
+            if (true === class_exists('JMS\Serializer\SerializationContext')) {
+                $context = SerializationContext::create();
 
-            $value = $this->serializer->serialize($filteredValue, $contentType, $context);
+                if (null !== $groups = $param->getData('jms_serializer.groups')) {
+                    $context->setGroups($groups);
+                }
+                if (null !== $version = $param->getData('jms_serializer.version')) {
+                    $context->setVersion($version);
+                }
+                if (null !== $nulls = $param->getData('jms_serializer.serialize_nulls')) {
+                    $context->setSerializeNull($nulls);
+                }
+                if (
+                    true === $param->getData('jms_serializer.max_depth_checks')
+                    &&
+                    true === method_exists('JMS\Serializer\SerializationContext', 'enableMaxDepthChecks')
+                ) {
+                    $context->enableMaxDepthChecks();
+                }
+
+                $value = $this->serializer->serialize($filteredValue, $contentType, $context);
+            } else {
+                $value = $this->serializer->serialize($filteredValue, $contentType);
+            }
         }
 
         parent::visit($command, $request, $param, $value);

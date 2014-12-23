@@ -20,10 +20,16 @@ class JMSSerializerResponseParserTest extends \PHPUnit_Framework_TestCase
 {
     public function testDeserializeContextConfiguration()
     {
-        $expectedContext = DeserializationContext::create();
-        $expectedContext->setGroups('group');
-        $expectedContext->setVersion(1);
-        $expectedContext->enableMaxDepthChecks();
+        if (true === class_exists('JMS\Serializer\DeserializationContext')) {
+            $expectedContext = DeserializationContext::create();
+            $expectedContext->setGroups('group');
+            $expectedContext->setVersion(1);
+            if(true === method_exists('JMS\Serializer\DeserializationContext', 'enableMaxDepthChecks')) {
+                $expectedContext->enableMaxDepthChecks();
+            }
+        } else {
+            $expectedContext = null;
+        }
 
         $operation = $this->getMock('Guzzle\Service\Description\OperationInterface');
         $operation->expects($this->any())->method('getResponseType')->will($this->returnValue(OperationInterface::TYPE_CLASS));
@@ -46,8 +52,13 @@ class JMSSerializerResponseParserTest extends \PHPUnit_Framework_TestCase
         $response->setBody('body');
 
         $serializer = $this->getMock('JMS\Serializer\SerializerInterface');
-        $serializer->expects($this->once())->method('deserialize')
-            ->with('body', 'ResponseClass', 'json', $this->equalTo($expectedContext));
+        if(null === $expectedContext) {
+            $serializer->expects($this->once())->method('deserialize')
+                ->with('body', 'ResponseClass', 'json');
+        } else {
+            $serializer->expects($this->once())->method('deserialize')
+                ->with('body', 'ResponseClass', 'json', $this->equalTo($expectedContext));
+        }
 
         $parser = new JMSSerializerResponseParser($serializer, $this->getMock('Guzzle\Service\Command\ResponseParserInterface'));
 
