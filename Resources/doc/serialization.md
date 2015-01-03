@@ -32,7 +32,7 @@ Executing the `GetPerson` command will now return an instance of `Vendor\MyBundl
     $command = $client->getCommand('GetPerson', array('id' => $id));
     $person = $client->execute($command);
 
-If you wish to customize the deserialization context of the serializer, you can do so by usage of the `data` property of the Operation. Groups, version, and max depth checks are configurable for deserialization:
+If you wish to customize the deserialization context of the serializer (JMSSerializer v0.12+), you can do so by usage of the `data` property of the Operation. Groups, version, and max depth checks (JMSSerializer v0.13+) are configurable for deserialization:
 
 For example:
 

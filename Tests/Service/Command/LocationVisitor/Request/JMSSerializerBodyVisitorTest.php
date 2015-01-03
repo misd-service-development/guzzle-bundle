@@ -18,11 +18,17 @@ class JMSSerializerBodyVisitorTest extends \PHPUnit_Framework_TestCase
 {
     public function testSerializeContextConfiguration()
     {
-        $expectedContext = SerializationContext::create();
-        $expectedContext->setGroups('group');
-        $expectedContext->setVersion(1);
-        $expectedContext->setSerializeNull(true);
-        $expectedContext->enableMaxDepthChecks();
+        if (true === class_exists('JMS\Serializer\SerializationContext')) {
+            $expectedContext = SerializationContext::create();
+            $expectedContext->setGroups('group');
+            $expectedContext->setVersion(1);
+            $expectedContext->setSerializeNull(true);
+            if(true === method_exists('JMS\Serializer\SerializationContext', 'enableMaxDepthChecks')) {
+                $expectedContext->enableMaxDepthChecks();
+            }
+        } else {
+            $expectedContext = null;
+        }
 
         $parameter = $this->getMock('Guzzle\Service\Description\Parameter');
         $parameter->expects($this->once())->method('getSentAs')->will($this->returnValue('json'));
@@ -45,9 +51,15 @@ class JMSSerializerBodyVisitorTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $serializer = $this->getMock('JMS\Serializer\SerializerInterface');
-        $serializer->expects($this->once())->method('serialize')
-            ->with(array(), 'json', $this->equalTo($expectedContext))
-            ->will($this->returnValue('serialized'));
+        if(null === $expectedContext) {
+            $serializer->expects($this->once())->method('serialize')
+                ->with(array(), 'json')
+                ->will($this->returnValue('serialized'));
+        } else {
+            $serializer->expects($this->once())->method('serialize')
+                ->with(array(), 'json', $this->equalTo($expectedContext))
+                ->will($this->returnValue('serialized'));
+        }
 
         $parser = new JMSSerializerBodyVisitor($serializer, $this->getMock('Guzzle\Service\Command\ResponseParserInterface'));
 
