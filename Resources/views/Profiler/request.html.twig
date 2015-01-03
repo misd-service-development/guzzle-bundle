@@ -1,0 +1,81 @@
+<h3>Request details</h3>
+<table>
+    <tbody>
+    <tr>
+        <th>Method</th>
+        <td>{{ request.method }}</td>
+    </tr>
+    <tr>
+        <th>Protocol</th>
+        <td>{{ request.scheme }}</td>
+    </tr>
+    <tr>
+        <th>Host</th>
+        <td>{{ request.host }}</td>
+    </tr>
+    <tr>
+        <th>Path</th>
+        <td>{{ request.path }}</td>
+    </tr>
+
+    {% if request.query is not empty %}
+        <tr>
+            <th>Query</th>
+            <td>{{ request.query }}</td>
+        </tr>
+    {% endif %}
+
+    {% if request.postFields is not empty %}
+        <tr>
+            <th colspan="2">Post fields</th>
+        </tr>
+        {% for field, value in request.postFields %}
+            <tr>
+                <th>{{ field }}</th>
+                <td>{{ value }}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+
+    {% if request.body is not empty %}
+        <tr>
+            <th colspan="2">Body</th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <pre>
+                    {{ request.body }}
+                </pre>
+            </td>
+        </tr>
+    {% endif %}
+
+    {% if request.headers is not empty %}
+        <tr>
+            <th colspan="2">Headers</th>
+        </tr>
+        {% for header,value in request.headers %}
+            <tr>
+                <th>{{ header }}</th>
+                <td>{{ value|join('<strong>, </strong>') }}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+
+    {% if request.query is not empty %}
+        <th colspan="2">Query parameters</th>
+        {% for name,parameter in request.query %}
+            <tr>
+                <th>{{ name }}</th>
+                <td>
+                    {% if parameter is iterable %}
+                        {{ _self.display_array_recursive(parameter) }}
+                    {% else %}
+                        {{ parameter }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+    </tbody>
+</table>

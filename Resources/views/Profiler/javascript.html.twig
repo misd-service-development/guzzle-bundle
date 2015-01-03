@@ -1,0 +1,18 @@
+<script>
+    function guzzleToggle(selectedType, id){
+        var types = ['time', 'request', 'response'];
+        for (var i = 0; i < types.length; i++) {
+            var type =  types[i];
+            var div = document.getElementById('guzzle-' + type + id);
+            if (selectedType == type) {
+                if(div.style.display == 'block'){
+                    div.style.display = 'none';
+                } else {
+                    div.style.display = 'block';
+                }
+            } else {
+                div.style.display = 'none';
+            }
+        }
+    }
+</script>

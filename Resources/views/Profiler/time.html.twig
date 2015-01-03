@@ -1,0 +1,42 @@
+{% set connection_percent = (100 * time.connection) / time.total %}
+{% set process_percent = (100 * (time.total - time.connection)) / time.total %}
+
+<h3>Timeline details</h3>
+<table>
+    <tbody>
+    <tr>
+        <th colspan="2">Time</th>
+    </tr>
+    <tr>
+        <th>Duration total</th>
+        <td>{{ '%0.2f ms'|format(time.total*1000) }}</td>
+    </tr>
+    <tr>
+        <th>Duration connection</th>
+        <td>{{ '%0.2f ms'|format(time.connection*1000) }} - {{ '%0.1f %%'|format(connection_percent) }}</td>
+    </tr>
+    <tr>
+        <th>Duration process</th>
+        <td>{{ '%0.2f ms'|format((time.total - time.connection)*1000) }} - {{ '%0.1f %%'|format(process_percent) }}</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div class="sf-profiler-timeline">
+                <div class="legends">
+                    <span data-color="#FBB450" style="border-left-color: #FBB450;">waiting</span>
+                    <span data-color="#62C462" style="border-left-color: #62C462;">process</span>
+                </div>
+            </div>
+            <div class="progress progress-striped">
+                <div class="bar bar-warning"
+                     style="width: {{ connection_percent|number_format(0) }}%;">{{ connection_percent|number_format(0) }}
+                    %
+                </div>
+                <div class="bar bar-success"
+                     style="width: {{ process_percent|number_format(0) }}%;">{{ process_percent|number_format(0) }} %
+                </div>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

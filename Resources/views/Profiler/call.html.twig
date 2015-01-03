@@ -1,0 +1,20 @@
+<li class="{{ index is even ? 'even' : 'odd' }}{{ call.response.statusCode != 200 ? ' error' }}">
+    <div class="guzzle-summary">
+        <a name="request{{ index }}"></a>
+        <strong>Status:</strong> {{ call.response.statusCode }} {{ call.response.reasonPhrase }}<br/>
+        <strong>Method:</strong> {{ call.request.method }}<br/>
+        <strong>URL:</strong> <a href="{{ call.request.scheme }}://{{ call.request.host }}{{ call.request.path }}" target="_blank">{{ call.request.scheme }}://{{ call.request.host }}{{ call.request.path }}</a><br/>
+        <strong>Total time:</strong> {{ '%0.2f ms'|format(call.time.total * 1000) }} <a href="#request{{ index }}" onclick="guzzleToggle('time', {{ index }}); return false;">details</a><br/>
+        <strong>Request:</strong> {{ call.request.body|length }} bytes <a href="#request{{ index }}" onclick="guzzleToggle('request', {{ index }}); return false;">details</a><br/>
+        <strong>Response:</strong> {{ call.response.body|length }} bytes <a href="#request{{ index }}" onclick="guzzleToggle('response', {{ index }}); return false;">details</a><br/>
+    </div>
+    <div id="guzzle-time{{ index }}" class="guzzle-details">
+        {% include 'MisdGuzzleBundle:Profiler:time.html.twig' with {'time': call.time} %}
+    </div>
+    <div id="guzzle-request{{ index }}" class="guzzle-details">
+        {% include 'MisdGuzzleBundle:Profiler:request.html.twig' with {'request': call.request} %}
+    </div>
+    <div id="guzzle-response{{ index }}" class="guzzle-details">
+        {% include 'MisdGuzzleBundle:Profiler:response.html.twig' with {'response':call.response} %}
+    </div>
+</li>

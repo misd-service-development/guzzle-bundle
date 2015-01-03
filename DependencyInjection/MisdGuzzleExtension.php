@@ -41,6 +41,11 @@ class MisdGuzzleExtension extends Extension
             $loader->load('serializer.xml');
         }
 
+        $bundles = $container->getParameter('kernel.bundles');
+        if (isset($bundles['WebProfilerBundle'])) {
+            $loader->load('profiler.xml');
+        }
+
         if (interface_exists('Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface')) {
             // choose a ParamConverterInterface implementation that is compatible
             // with the version of SensioFrameworkExtraBundle being used

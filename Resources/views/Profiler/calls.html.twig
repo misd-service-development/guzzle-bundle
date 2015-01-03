@@ -1,0 +1,9 @@
+<div class="guzzle">
+    <h2>Requests</h2>
+    <ul class="alt">
+        {% for call in calls %}
+                {% include 'MisdGuzzleBundle:Profiler:call.html.twig' with {'index': loop.index0, 'call': call} %}
+        {% endfor %}
+    </ul>
+</div>
+{% include 'MisdGuzzleBundle:Profiler:javascript.html.twig' %}
