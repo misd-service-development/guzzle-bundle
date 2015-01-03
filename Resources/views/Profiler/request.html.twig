@@ -25,6 +25,18 @@
         </tr>
     {% endif %}
 
+    {% if request.postFields is not empty %}
+        <tr>
+            <th colspan="2">Post fields</th>
+        </tr>
+        {% for field, value in request.postFields %}
+            <tr>
+                <th>{{ field }}</th>
+                <td>{{ value }}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+
     {% if request.body is not empty %}
         <tr>
             <th colspan="2">Body</th>

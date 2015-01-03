@@ -134,18 +134,21 @@ class GuzzleDataCollector extends DataCollector
     private function collectRequest(GuzzleRequestInterface $request)
     {
         $body = null;
+        $postFields = null;
         if ($request instanceof EntityEnclosingRequestInterface) {
             $body = (string) $request->getBody();
+            $postFields = $request->getPostFields();
         }
 
         return array(
-            'headers' => $request->getHeaders(),
-            'method'  => $request->getMethod(),
-            'scheme'  => $request->getScheme(),
-            'host'    => $request->getHost(),
-            'path'    => $request->getPath(),
-            'query'   => $request->getQuery(),
-            'body'    => $body
+            'headers'    => $request->getHeaders(),
+            'method'     => $request->getMethod(),
+            'scheme'     => $request->getScheme(),
+            'host'       => $request->getHost(),
+            'path'       => $request->getPath(),
+            'query'      => $request->getQuery(),
+            'postFields' => $postFields,
+            'body'       => $body
         );
     }
 

@@ -75,13 +75,14 @@ class GuzzleDataCollectorTest extends \PHPUnit_Framework_TestCase
             $calls[0],
             array(
                 'request' => array(
-                    'headers' => null,
-                    'method'  => 'get',
-                    'scheme'  => 'http',
-                    'host'    => 'test.local',
-                    'path'    => '/',
-                    'query'   => $callUrlQuery,
-                    'body'    => null
+                    'headers'    => null,
+                    'method'     => 'get',
+                    'scheme'     => 'http',
+                    'host'       => 'test.local',
+                    'path'       => '/',
+                    'query'      => $callUrlQuery,
+                    'postFields' => null,
+                    'body'       => null
                 ),
                 'response' => array(
                     'statusCode'   => 200,
@@ -127,13 +128,14 @@ class GuzzleDataCollectorTest extends \PHPUnit_Framework_TestCase
             $calls[0],
             array(
                 'request' => array(
-                    'headers' => null,
-                    'method'  => 'post',
-                    'scheme'  => 'http',
-                    'host'    => 'test.local',
-                    'path'    => '/',
-                    'query'   => $callUrlQuery,
-                    'body'    => null,
+                    'headers'    => null,
+                    'method'     => 'post',
+                    'scheme'     => 'http',
+                    'host'       => 'test.local',
+                    'path'       => '/',
+                    'query'      => $callUrlQuery,
+                    'postFields' => null,
+                    'body'       => null
                 ),
                 'response' => array(
                     'statusCode'   => 404,
@@ -186,13 +188,14 @@ class GuzzleDataCollectorTest extends \PHPUnit_Framework_TestCase
             $calls[0],
             array(
                 'request' => array(
-                    'headers' => null,
-                    'method'  => 'post',
-                    'scheme'  => 'http',
-                    'host'    => 'test.local',
-                    'path'    => '/',
-                    'query'   => $callUrlQuery,
-                    'body'    => 'Request body string',
+                    'headers'    => null,
+                    'method'     => 'post',
+                    'scheme'     => 'http',
+                    'host'       => 'test.local',
+                    'path'       => '/',
+                    'query'      => $callUrlQuery,
+                    'postFields' => null,
+                    'body'       => 'Request body string',
                 ),
                 'response' => array(
                     'statusCode'   => 201,
