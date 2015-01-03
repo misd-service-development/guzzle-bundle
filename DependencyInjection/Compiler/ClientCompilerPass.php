@@ -43,7 +43,7 @@ class ClientCompilerPass implements CompilerPassInterface
                 if (
                     false === class_exists($class)
                     ||
-                    ($class !== 'Guzzle\Service\ClientInterface' || false === is_subclass_of($class, 'Guzzle\Service\ClientInterface'))
+                    false === is_subclass_of($class, 'Guzzle\Service\ClientInterface')
                 ) {
                     continue;
                 }
