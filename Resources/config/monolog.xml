@@ -13,7 +13,7 @@
         </service>
         <service id="misd_guzzle.log.adapter.monolog" class="%guzzle.log.adapter.monolog.class%" public="false">
             <tag name="monolog.logger" channel="guzzle"/>
-            <argument type="service" id="monolog.logger" on-invalid="ignore"/>
+            <argument type="service" id="logger" on-invalid="ignore"/>
         </service>
 
     </services>
