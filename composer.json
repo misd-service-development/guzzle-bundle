@@ -16,7 +16,7 @@
     },
     "require": {
         "php": ">=5.3.3",
-        "symfony/framework-bundle": "~2.2",
+        "symfony/framework-bundle": ">=2.2 <4.0-dev",
         "guzzle/guzzle": "~3.0"
     },
     "suggest": {
@@ -25,8 +25,7 @@
         "symfony/monolog-bundle": "Log requests"
     },
     "conflict": {
-        "jms/serializer-bundle": "<0.11-dev",
-        "sensio/framework-extra-bundle": ">=4.0-dev"
+        "jms/serializer-bundle": "<0.11-dev"
     },
     "require-dev": {
         "doctrine/cache": "~1.0",
