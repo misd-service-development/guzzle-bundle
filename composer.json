@@ -26,7 +26,7 @@
     },
     "conflict": {
         "jms/serializer-bundle": "<0.11-dev",
-        "sensio/framework-extra-bundle": ">=4.0-dev"
+        "sensio/framework-extra-bundle": ">=4.0-dev <dev-master"
     },
     "require-dev": {
         "doctrine/cache": "~1.0",
