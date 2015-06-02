@@ -15,8 +15,7 @@
         <service id="misd_guzzle.request.visitor.body" class="%misd_guzzle.request.visitor.body.class%">
             <argument type="service" id="jms_serializer.serializer" on-invalid="ignore"/>
         </service>
-        <service id="misd_guzzle.response.parser.fallback" class="%misd_guzzle.response.parser.fallback.class%"
-                 factory-class="%misd_guzzle.response.parser.fallback.class%" factory-method="getInstance"/>
+        <service id="misd_guzzle.response.parser.fallback" class="%misd_guzzle.response.parser.fallback.class%"/>
         <service id="misd_guzzle.response.parser" class="%misd_guzzle.response.parser.class%">
             <argument type="service" id="jms_serializer.serializer" on-invalid="ignore"/>
             <argument type="service" id="misd_guzzle.response.parser.fallback"/>

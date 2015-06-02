@@ -89,6 +89,26 @@ class MisdGuzzleExtension extends Extension
         $container->setParameter('misd_guzzle.log.format', $logFormat);
         $container->setParameter('misd_guzzle.log.enabled', $config['log']['enabled']);
 
+        $def = $container->getDefinition('guzzle.service_builder');
+        if (method_exists($def, 'setFactory')) {
+            // to be inlined in service_builder.xml when dependency on Symfony DependencyInjection is bumped to 2.6
+            $def->setFactory(array('%guzzle.service_builder.class%', 'factory'));
+        } else {
+            // to be removed when dependency on Symfony DependencyInjection is bumped to 2.6
+            $def->setFactoryClass('%guzzle.service_builder.class%');
+            $def->setFactoryMethod('factory');
+        }
+
+        $def = $container->getDefinition('misd_guzzle.response.parser.fallback');
+        if (method_exists($def, 'setFactory')) {
+            // to be inlined in serializer.xml when dependency on Symfony DependencyInjection is bumped to 2.6
+            $def->setFactory(array('%misd_guzzle.response.parser.fallback.class%', 'getInstance'));
+        } else {
+            // to be removed when dependency on Symfony DependencyInjection is bumped to 2.6
+            $def->setFactoryClass('%misd_guzzle.response.parser.fallback.class%');
+            $def->setFactoryMethod('getInstance');
+        }
+
         if (
             version_compare(Version::VERSION, '3.6', '>=')
             && $container->hasParameter('kernel.debug')
