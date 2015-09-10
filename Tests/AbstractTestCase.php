@@ -41,6 +41,7 @@ class AbstractTestCase extends PHPUnit_Framework_TestCase
         $container->set('service_container', $container);
         $container->set('monolog.logger', $this->getMock('Symfony\\Bridge\\Monolog\\Logger', array(), array('app')));
         $container->set('jms_serializer', $this->getMock('JMS\\Serializer\\SerializerInterface'));
+        $container->setAlias('logger', 'monolog.logger');
 
         $container->registerExtension($extension);
         $extension->load($config, $container);
