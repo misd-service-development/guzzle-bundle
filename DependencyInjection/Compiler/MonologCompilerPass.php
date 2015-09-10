@@ -11,7 +11,6 @@
 
 namespace Misd\GuzzleBundle\DependencyInjection\Compiler;
 
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
@@ -28,12 +27,16 @@ class MonologCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (false === $container->has('monolog.logger') || false === $container->getParameter('misd_guzzle.log.enabled')) {
+        if ($container->has('monolog.logger')) {
             return;
         }
 
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../../Resources/config'));
+        $serviceIds = ['misd_guzzle.log.monolog', 'misd_guzzle.log.adapter.monolog'];
 
-        $loader->load('monolog.xml');
+        foreach ($serviceIds as $id) {
+            if ($container->hasDefinition($id)) {
+                $container->removeDefinition($id);
+            }
+        }
     }
 }

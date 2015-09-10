@@ -89,6 +89,10 @@ class MisdGuzzleExtension extends Extension
         $container->setParameter('misd_guzzle.log.format', $logFormat);
         $container->setParameter('misd_guzzle.log.enabled', $config['log']['enabled']);
 
+        if ($config['log']['enabled']) {
+            $loader->load('monolog.xml');
+        }
+
         if (
             version_compare(Version::VERSION, '3.6', '>=')
             && $container->hasParameter('kernel.debug')
