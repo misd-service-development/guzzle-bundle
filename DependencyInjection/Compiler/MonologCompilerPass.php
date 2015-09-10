@@ -31,7 +31,7 @@ class MonologCompilerPass implements CompilerPassInterface
             return;
         }
 
-        $serviceIds = ['misd_guzzle.log.monolog', 'misd_guzzle.log.adapter.monolog'];
+        $serviceIds = array('misd_guzzle.log.monolog', 'misd_guzzle.log.adapter.monolog');
 
         foreach ($serviceIds as $id) {
             if ($container->hasDefinition($id)) {
