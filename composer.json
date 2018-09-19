@@ -16,7 +16,7 @@
     },
     "require": {
         "php": ">=5.3.3",
-        "symfony/framework-bundle": "~2.2",
+        "symfony/framework-bundle": "~2.8|~3.0|~4.0",
         "guzzle/guzzle": "~3.0"
     },
     "suggest": {
@@ -31,7 +31,7 @@
     "require-dev": {
         "doctrine/cache": "~1.0",
         "phpunit/phpunit": "~4.3",
-        "sensio/framework-extra-bundle": "~2.2",
+        "sensio/framework-extra-bundle": "~2.2|~5.0",
         "symfony/yaml": "~2.2",
         "symfony/monolog-bundle": "~2.2",
         "jms/serializer-bundle": "~0.11"
